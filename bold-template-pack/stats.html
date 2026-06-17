@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stats Slide — Bold Template Pack</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #000;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .deck {
+      width: min(100vw, calc(100vh * 16 / 9));
+      height: min(100vh, calc(100vw * 9 / 16));
+      position: relative;
+      overflow: hidden;
+      container-type: inline-size;
+    }
+
+    /* ── STATS SLIDE ────────────────────────── */
+    .slide-stats {
+      position: absolute;
+      inset: 0;
+      background: #0a0a0f;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: clamp(28px, 5cqi, 68px);
+      overflow: hidden;
+    }
+
+    /* Background grid pattern */
+    .slide-stats::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: clamp(30px,4cqi,60px) clamp(30px,4cqi,60px);
+      z-index: 0;
+    }
+
+    /* Radial glow bottom-center */
+    .slide-stats::after {
+      content: '';
+      position: absolute;
+      bottom: -20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      height: 60%;
+      background: radial-gradient(ellipse at center, rgba(124,58,237,0.18) 0%, transparent 70%);
+      z-index: 0;
+    }
+
+    /* Content sits above decorations */
+    .stats-content {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+    }
+
+    /* Section header */
+    .stats-header {
+      display: flex;
+      align-items: center;
+      gap: clamp(10px, 1.2cqi, 18px);
+      margin-bottom: clamp(20px, 3cqi, 44px);
+      opacity: 0;
+      animation: fadeUp 0.5s ease 0.05s forwards;
+    }
+
+    .stats-header .label {
+      font-size: clamp(10px, 1.2cqi, 15px);
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #7c3aed;
+    }
+
+    .stats-header .rule {
+      flex: 1;
+      height: 1px;
+      background: rgba(124,58,237,0.3);
+    }
+
+    .stats-header .title {
+      font-size: clamp(14px, 2cqi, 26px);
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    /* KPI grid */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(12px, 2cqi, 32px);
+    }
+
+    /* Individual KPI card */
+    .kpi-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: clamp(6px, 0.8cqi, 12px);
+      padding: clamp(18px, 2.5cqi, 38px);
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+    }
+
+    .kpi-card:nth-child(1) { animation: revealCard 0.5s cubic-bezier(0.22,1,0.36,1) 0.2s forwards; }
+    .kpi-card:nth-child(2) { animation: revealCard 0.5s cubic-bezier(0.22,1,0.36,1) 0.35s forwards; }
+    .kpi-card:nth-child(3) { animation: revealCard 0.5s cubic-bezier(0.22,1,0.36,1) 0.5s forwards; }
+
+    /* Accent top border */
+    .kpi-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--card-accent, #7c3aed);
+    }
+
+    /* Trend badge */
+    .kpi-trend {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3em;
+      font-size: clamp(9px, 1.1cqi, 14px);
+      font-weight: 600;
+      padding: 0.25em 0.6em;
+      border-radius: 999px;
+      margin-bottom: clamp(10px, 1.2cqi, 18px);
+    }
+
+    .kpi-trend.up   { background: rgba(6,214,160,0.15); color: #06d6a0; }
+    .kpi-trend.down { background: rgba(255,60,0,0.15);  color: #ff3c00; }
+    .kpi-trend.flat { background: rgba(255,255,255,0.08); color: #888; }
+
+    /* The big number */
+    .kpi-number {
+      font-size: clamp(40px, 8cqi, 110px);
+      font-weight: 900;
+      line-height: 0.9;
+      letter-spacing: -0.04em;
+      color: #ffffff;
+      display: block;
+      margin-bottom: clamp(8px, 1cqi, 16px);
+    }
+
+    .kpi-number .unit {
+      font-size: 0.45em;
+      font-weight: 400;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: -0.02em;
+    }
+
+    /* Metric label */
+    .kpi-label {
+      font-size: clamp(11px, 1.4cqi, 18px);
+      font-weight: 600;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: clamp(4px, 0.5cqi, 8px);
+    }
+
+    /* Supporting description */
+    .kpi-desc {
+      font-size: clamp(9px, 1.1cqi, 14px);
+      font-weight: 400;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.4;
+    }
+
+    /* Sparkline placeholder bar */
+    .kpi-spark {
+      display: flex;
+      align-items: flex-end;
+      gap: clamp(2px, 0.3cqi, 5px);
+      height: clamp(20px, 2.5cqi, 36px);
+      margin-top: clamp(10px, 1.5cqi, 20px);
+    }
+
+    .kpi-spark-bar {
+      flex: 1;
+      border-radius: 2px 2px 0 0;
+      background: var(--card-accent, #7c3aed);
+      opacity: 0.4;
+      transition: opacity 200ms;
+    }
+
+    .kpi-spark-bar.highlight { opacity: 1; }
+
+    /* Bottom footnote */
+    .stats-footnote {
+      margin-top: clamp(12px, 1.8cqi, 28px);
+      font-size: clamp(9px, 1cqi, 13px);
+      color: rgba(255,255,255,0.25);
+      opacity: 0;
+      animation: fadeUp 0.4s ease 0.7s forwards;
+    }
+
+    /* ── ANIMATIONS ─────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes revealCard {
+      from { opacity: 0; transform: translateY(20px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* Pause when not active */
+    .slide-stats:not(.active) * {
+      animation-play-state: paused !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="deck">
+    <div class="slide-stats active">
+
+      <div class="stats-content">
+
+        <!-- Header row -->
+        <div class="stats-header">
+          <span class="label">By The Numbers</span>
+          <div class="rule"></div>
+          <span class="title">Q3 2025 Performance</span>
+        </div>
+
+        <!-- 3 KPI cards -->
+        <div class="kpi-grid">
+
+          <!-- KPI 1 -->
+          <div class="kpi-card" style="--card-accent: #7c3aed;">
+            <div class="kpi-trend up">↑ +24% YoY</div>
+            <span class="kpi-number"
+                  data-count="2847"
+                  data-count-suffix=""
+                  data-count-duration="1400">0</span>
+            <div class="kpi-label">Active Users</div>
+            <div class="kpi-desc">Monthly active users across all platforms and regions</div>
+            <div class="kpi-spark">
+              <div class="kpi-spark-bar" style="height:30%"></div>
+              <div class="kpi-spark-bar" style="height:45%"></div>
+              <div class="kpi-spark-bar" style="height:38%"></div>
+              <div class="kpi-spark-bar" style="height:60%"></div>
+              <div class="kpi-spark-bar" style="height:52%"></div>
+              <div class="kpi-spark-bar" style="height:70%"></div>
+              <div class="kpi-spark-bar" style="height:65%"></div>
+              <div class="kpi-spark-bar highlight" style="height:100%"></div>
+            </div>
+          </div>
+
+          <!-- KPI 2 -->
+          <div class="kpi-card" style="--card-accent: #06d6a0;">
+            <div class="kpi-trend up">↑ +11 pts</div>
+            <span class="kpi-number"
+                  data-count="98"
+                  data-count-suffix="%"
+                  data-count-duration="900">0%</span>
+            <div class="kpi-label">Uptime SLA</div>
+            <div class="kpi-desc">System availability over the trailing 90-day period</div>
+            <div class="kpi-spark">
+              <div class="kpi-spark-bar" style="height:88%;--card-accent:#06d6a0"></div>
+              <div class="kpi-spark-bar" style="height:92%;--card-accent:#06d6a0"></div>
+              <div class="kpi-spark-bar" style="height:85%;--card-accent:#06d6a0"></div>
+              <div class="kpi-spark-bar" style="height:95%;--card-accent:#06d6a0"></div>
+              <div class="kpi-spark-bar" style="height:90%;--card-accent:#06d6a0"></div>
+              <div class="kpi-spark-bar" style="height:96%;--card-accent:#06d6a0"></div>
+              <div class="kpi-spark-bar" style="height:94%;--card-accent:#06d6a0"></div>
+              <div class="kpi-spark-bar highlight" style="height:100%;--card-accent:#06d6a0"></div>
+            </div>
+          </div>
+
+          <!-- KPI 3 -->
+          <div class="kpi-card" style="--card-accent: #ffdd57;">
+            <div class="kpi-trend up">↑ Best ever</div>
+            <span class="kpi-number"
+                  data-count="72"
+                  data-count-duration="1100">0</span>
+            <div class="kpi-label">NPS Score</div>
+            <div class="kpi-desc">Net Promoter Score from 4,200+ customer survey responses</div>
+            <div class="kpi-spark">
+              <div class="kpi-spark-bar" style="height:55%;--card-accent:#ffdd57"></div>
+              <div class="kpi-spark-bar" style="height:48%;--card-accent:#ffdd57"></div>
+              <div class="kpi-spark-bar" style="height:62%;--card-accent:#ffdd57"></div>
+              <div class="kpi-spark-bar" style="height:58%;--card-accent:#ffdd57"></div>
+              <div class="kpi-spark-bar" style="height:70%;--card-accent:#ffdd57"></div>
+              <div class="kpi-spark-bar" style="height:75%;--card-accent:#ffdd57"></div>
+              <div class="kpi-spark-bar" style="height:80%;--card-accent:#ffdd57"></div>
+              <div class="kpi-spark-bar highlight" style="height:100%;--card-accent:#ffdd57"></div>
+            </div>
+          </div>
+
+        </div><!-- /.kpi-grid -->
+
+        <p class="stats-footnote">Data as of September 30, 2025. YoY = year-over-year vs Q3 2024.</p>
+
+      </div><!-- /.stats-content -->
+
+    </div><!-- /.slide-stats -->
+  </div><!-- /.deck -->
+
+  <script>
+  /* Count-up animation — triggers when slide has .active class */
+  (function() {
+    function countUp(el) {
+      var end      = parseInt(el.dataset.count, 10);
+      var start    = parseInt(el.dataset.countFrom || '0', 10);
+      var duration = parseInt(el.dataset.countDuration || '1500', 10);
+      var suffix   = el.dataset.countSuffix || '';
+      var prefix   = el.dataset.countPrefix || '';
+      var startTime = null;
+
+      function ease(t) { return 1 - Math.pow(1 - t, 3); }
+
+      function step(ts) {
+        if (!startTime) startTime = ts;
+        var p = Math.min((ts - startTime) / duration, 1);
+        el.textContent = prefix + Math.round(start + (end - start) * ease(p)).toLocaleString() + suffix;
+        if (p < 1) requestAnimationFrame(step);
+      }
+
+      requestAnimationFrame(step);
+    }
+
+    document.querySelectorAll('[data-count]').forEach(function(el) {
+      var slide = el.closest('.slide-stats');
+      if (!slide) return;
+      var done = false;
+      var obs = new MutationObserver(function() {
+        if (slide.classList.contains('active') && !done) {
+          done = true;
+          countUp(el);
+        }
+        if (!slide.classList.contains('active')) { done = false; }
+      });
+      obs.observe(slide, { attributes: true, attributeFilter: ['class'] });
+      /* Also run immediately if already active (standalone view) */
+      if (slide.classList.contains('active') && !done) {
+        done = true;
+        countUp(el);
+      }
+    });
+  })();
+  </script>
+</body>
+</html>

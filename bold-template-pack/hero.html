@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hero Slide — Bold Template Pack</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #111;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* 16:9 wrapper */
+    .deck {
+      width: min(100vw, calc(100vh * 16 / 9));
+      height: min(100vh, calc(100vw * 9 / 16));
+      position: relative;
+      overflow: hidden;
+      container-type: inline-size;
+    }
+
+    /* ── HERO SLIDE ─────────────────────────── */
+    .slide-hero {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: flex-start;
+      padding: clamp(32px, 6cqi, 80px);
+      overflow: hidden;
+      color: #ffffff;
+    }
+
+    /* Full-bleed gradient background */
+    .slide-hero .bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        135deg,
+        #0f0524 0%,
+        #1a0545 30%,
+        #3b0f8c 60%,
+        #7c3aed 100%
+      );
+      z-index: 0;
+    }
+
+    /* Decorative radial glow */
+    .slide-hero .bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 70% 40%, rgba(124,58,237,0.5) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 20% 80%, rgba(6,214,160,0.2) 0%, transparent 60%);
+    }
+
+    /* Noise texture overlay for depth */
+    .slide-hero .bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+    }
+
+    /* Content layer */
+    .slide-hero .content {
+      position: relative;
+      z-index: 1;
+      max-width: 80%;
+    }
+
+    /* Eyebrow / kicker */
+    .slide-hero .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5em;
+      font-size: clamp(10px, 1.2cqi, 16px);
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #a78bfa;
+      margin-bottom: clamp(12px, 1.5cqi, 24px);
+      opacity: 0;
+      animation: slideUpFade 0.5s ease 0.1s forwards;
+    }
+
+    .slide-hero .kicker::before {
+      content: '';
+      display: inline-block;
+      width: clamp(16px, 2cqi, 28px);
+      height: 2px;
+      background: #a78bfa;
+    }
+
+    /* Main headline */
+    .slide-hero h1 {
+      font-size: clamp(36px, 8cqi, 108px);
+      font-weight: 900;
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+      color: #ffffff;
+      margin-bottom: clamp(12px, 1.8cqi, 28px);
+      opacity: 0;
+      animation: slideUpFade 0.55s cubic-bezier(0.22,1,0.36,1) 0.25s forwards;
+    }
+
+    /* Accent word — gradient text */
+    .slide-hero h1 .accent-word {
+      background: linear-gradient(90deg, #a78bfa, #06d6a0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Subtitle */
+    .slide-hero .subtitle {
+      font-size: clamp(14px, 2cqi, 26px);
+      font-weight: 400;
+      line-height: 1.5;
+      color: rgba(255,255,255,0.72);
+      max-width: 55ch;
+      margin-bottom: clamp(20px, 3cqi, 44px);
+      opacity: 0;
+      animation: slideUpFade 0.5s ease 0.45s forwards;
+    }
+
+    /* CTA button */
+    .slide-hero .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5em;
+      padding: clamp(10px,1.2cqi,18px) clamp(20px,2.5cqi,36px);
+      background: #ffffff;
+      color: #1a0545;
+      font-size: clamp(12px, 1.4cqi, 18px);
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      text-decoration: none;
+      opacity: 0;
+      animation: slideUpFade 0.5s ease 0.6s forwards;
+      transition: transform 150ms ease, box-shadow 150ms ease;
+    }
+
+    .slide-hero .cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+    }
+
+    .slide-hero .cta .arrow {
+      display: inline-block;
+      transition: transform 150ms ease;
+    }
+
+    .slide-hero .cta:hover .arrow {
+      transform: translateX(3px);
+    }
+
+    /* Bottom-right: logo / brand area */
+    .slide-hero .brand {
+      position: absolute;
+      bottom: clamp(20px, 2.5cqi, 36px);
+      right: clamp(24px, 3cqi, 44px);
+      z-index: 1;
+      font-size: clamp(10px, 1.1cqi, 15px);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      opacity: 0;
+      animation: fadeIn 0.5s ease 0.8s forwards;
+    }
+
+    /* Decorative large number / year in background */
+    .slide-hero .bg-number {
+      position: absolute;
+      right: -0.05em;
+      bottom: -0.15em;
+      font-size: clamp(160px, 28cqi, 380px);
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.05em;
+      color: rgba(255,255,255,0.04);
+      z-index: 0;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* ── ANIMATIONS ─────────────────────────── */
+    @keyframes slideUpFade {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* When embedded in a deck, only animate on .active */
+    .slide-hero:not(.active) * {
+      animation-play-state: paused !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="deck">
+
+    <div class="slide-hero active">
+      <!-- Background layer -->
+      <div class="bg"></div>
+
+      <!-- Large background number/year (optional — remove if not needed) -->
+      <div class="bg-number" aria-hidden="true">2025</div>
+
+      <!-- Main content -->
+      <div class="content">
+        <div class="kicker">Annual Product Keynote</div>
+
+        <h1>
+          Build Things<br>
+          <span class="accent-word">Worth Shipping</span>
+        </h1>
+
+        <p class="subtitle">
+          A deep dive into the tools, frameworks, and mindset shifts
+          that separate good software from great software.
+        </p>
+
+        <a href="#" class="cta">
+          Get Started <span class="arrow">→</span>
+        </a>
+      </div>
+
+      <!-- Brand / speaker name -->
+      <div class="brand">Your Name · Company</div>
+    </div>
+
+  </div>
+</body>
+</html>

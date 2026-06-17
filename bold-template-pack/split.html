@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Split Layout Slide — Bold Template Pack</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #111;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .deck {
+      width: min(100vw, calc(100vh * 16 / 9));
+      height: min(100vh, calc(100vw * 9 / 16));
+      position: relative;
+      overflow: hidden;
+      container-type: inline-size;
+    }
+
+    /* ── SPLIT SLIDE ────────────────────────── */
+    .slide-split {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template-columns: 45% 55%;
+    }
+
+    /* ── LEFT PANEL — accent color ──────────── */
+    .split-left {
+      background: #ff3c00; /* accent — override this */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: clamp(28px, 5cqi, 68px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Decorative oversized circle behind headline */
+    .split-left::before {
+      content: '';
+      position: absolute;
+      width: 70%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.07);
+      bottom: -20%;
+      right: -20%;
+    }
+
+    .split-left .eyebrow {
+      font-size: clamp(9px, 1.1cqi, 14px);
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: clamp(10px, 1.2cqi, 20px);
+      opacity: 0;
+      animation: revealLeft 0.5s ease 0.1s forwards;
+    }
+
+    .split-left h2 {
+      font-size: clamp(28px, 5.5cqi, 72px);
+      font-weight: 900;
+      line-height: 0.97;
+      letter-spacing: -0.04em;
+      color: #ffffff;
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      animation: revealLeft 0.55s cubic-bezier(0.22,1,0.36,1) 0.2s forwards;
+    }
+
+    .split-left .divider {
+      width: clamp(28px, 4cqi, 56px);
+      height: 4px;
+      background: rgba(255,255,255,0.5);
+      margin: clamp(12px, 1.8cqi, 28px) 0;
+      opacity: 0;
+      animation: revealLeft 0.4s ease 0.35s forwards;
+    }
+
+    .split-left .tagline {
+      font-size: clamp(12px, 1.6cqi, 20px);
+      font-weight: 400;
+      line-height: 1.5;
+      color: rgba(255,255,255,0.8);
+      max-width: 28ch;
+      opacity: 0;
+      animation: revealLeft 0.4s ease 0.45s forwards;
+    }
+
+    /* Section label pinned to bottom-left */
+    .split-left .section-label {
+      position: absolute;
+      bottom: clamp(16px, 2cqi, 28px);
+      left: clamp(28px, 5cqi, 68px);
+      font-size: clamp(9px, 1cqi, 13px);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* ── RIGHT PANEL — white / content ─────── */
+    .split-right {
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: clamp(28px, 5cqi, 68px);
+    }
+
+    .split-right .intro {
+      font-size: clamp(11px, 1.3cqi, 17px);
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #ff3c00;
+      margin-bottom: clamp(8px, 1cqi, 16px);
+      opacity: 0;
+      animation: revealRight 0.4s ease 0.3s forwards;
+    }
+
+    /* Bullet list */
+    .split-right ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: clamp(10px, 1.4cqi, 22px);
+    }
+
+    .split-right li {
+      display: flex;
+      align-items: flex-start;
+      gap: clamp(10px, 1.2cqi, 18px);
+      opacity: 0;
+    }
+
+    .split-right li:nth-child(1) { animation: revealRight 0.4s ease 0.4s forwards; }
+    .split-right li:nth-child(2) { animation: revealRight 0.4s ease 0.52s forwards; }
+    .split-right li:nth-child(3) { animation: revealRight 0.4s ease 0.64s forwards; }
+    .split-right li:nth-child(4) { animation: revealRight 0.4s ease 0.76s forwards; }
+    .split-right li:nth-child(5) { animation: revealRight 0.4s ease 0.88s forwards; }
+
+    /* Bullet marker */
+    .split-right .bullet-mark {
+      flex-shrink: 0;
+      width: clamp(20px, 2.4cqi, 32px);
+      height: clamp(20px, 2.4cqi, 32px);
+      border-radius: 50%;
+      background: #ff3c00;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: clamp(9px, 1.1cqi, 14px);
+      font-weight: 800;
+      margin-top: 0.1em;
+    }
+
+    .split-right .bullet-text strong {
+      display: block;
+      font-size: clamp(13px, 1.7cqi, 22px);
+      font-weight: 700;
+      color: #0a0a0a;
+      line-height: 1.2;
+      margin-bottom: 0.2em;
+    }
+
+    .split-right .bullet-text span {
+      font-size: clamp(11px, 1.3cqi, 17px);
+      color: #666666;
+      line-height: 1.4;
+    }
+
+    /* Bottom footnote */
+    .split-right .footnote {
+      margin-top: clamp(14px, 2cqi, 30px);
+      padding-top: clamp(10px, 1.2cqi, 18px);
+      border-top: 1px solid #e8e8e8;
+      font-size: clamp(9px, 1.1cqi, 14px);
+      color: #aaaaaa;
+      opacity: 0;
+      animation: revealRight 0.4s ease 1s forwards;
+    }
+
+    /* ── ANIMATIONS ─────────────────────────── */
+    @keyframes revealLeft {
+      from { opacity: 0; transform: translateX(-16px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes revealRight {
+      from { opacity: 0; transform: translateX(16px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    /* Pause when not active */
+    .slide-split:not(.active) * {
+      animation-play-state: paused !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="deck">
+
+    <div class="slide-split active">
+
+      <!-- LEFT: Accent panel with headline -->
+      <div class="split-left">
+        <p class="eyebrow">Why It Matters</p>
+        <h2>The Old Way<br>Is Broken.</h2>
+        <div class="divider"></div>
+        <p class="tagline">
+          Teams that ship slowly don't just lose time — they lose momentum, morale, and market.
+        </p>
+        <div class="section-label">Section 02</div>
+      </div>
+
+      <!-- RIGHT: White panel with bullets -->
+      <div class="split-right">
+        <p class="intro">The New Approach</p>
+        <ul>
+          <li>
+            <div class="bullet-mark">1</div>
+            <div class="bullet-text">
+              <strong>Ship smaller, ship faster</strong>
+              <span>Reduce batch sizes to accelerate feedback loops and reduce risk</span>
+            </div>
+          </li>
+          <li>
+            <div class="bullet-mark">2</div>
+            <div class="bullet-text">
+              <strong>Automate the boring parts</strong>
+              <span>CI/CD, testing, and monitoring free your team to focus on value</span>
+            </div>
+          </li>
+          <li>
+            <div class="bullet-mark">3</div>
+            <div class="bullet-text">
+              <strong>Measure outcomes, not output</strong>
+              <span>Lines of code and story points don't tell you if users are happy</span>
+            </div>
+          </li>
+          <li>
+            <div class="bullet-mark">4</div>
+            <div class="bullet-text">
+              <strong>Build psychological safety</strong>
+              <span>High-performing teams require an environment where failure is learning</span>
+            </div>
+          </li>
+        </ul>
+        <p class="footnote">Source: State of DevOps Report 2024 · Accelerate Research</p>
+      </div>
+
+    </div>
+
+  </div>
+</body>
+</html>
