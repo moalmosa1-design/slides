@@ -1,0 +1,447 @@
+/*
+ * viewport-base.css
+ * Base CSS for slide decks — handles 16:9 aspect ratio, responsive sizing,
+ * font scaling, and transition scaffolding.
+ *
+ * Usage: Copy the contents of this file into the <style> block of your
+ * slide HTML file. Do NOT link to it externally (decks must be self-contained).
+ */
+
+/* ─────────────────────────────────────────────
+   1. CSS CUSTOM PROPERTIES (override per preset)
+   ───────────────────────────────────────────── */
+:root {
+  /* Color tokens — override with a preset from STYLE_PRESETS.md */
+  --bg:           #ffffff;
+  --bg-alt:       #f5f5f5;
+  --fg:           #111111;
+  --fg-muted:     #666666;
+  --accent:       #0057ff;
+  --accent-light: #e8eeff;
+  --border:       #e2e2e2;
+  --surface:      #ffffff;
+
+  /* Typography tokens */
+  --font-heading: 'Helvetica Neue', Arial, sans-serif;
+  --font-body:    'Helvetica Neue', Arial, sans-serif;
+  --font-mono:    'Courier New', monospace;
+  --weight-heading: 700;
+  --weight-body:    400;
+  --tracking-tight: -0.03em;
+
+  /* Layout tokens */
+  --radius:       6px;
+  --shadow:       0 2px 8px rgba(0,0,0,0.10);
+  --shadow-lg:    0 8px 30px rgba(0,0,0,0.15);
+
+  /* Slide proportional unit — 1vw of the slide's logical width.
+     Use for padding, gap, icon sizes: e.g. padding: calc(var(--su) * 4) */
+  --su:           1cqi; /* container query inline — falls back below */
+
+  /* Transition speed */
+  --speed-fast:   150ms;
+  --speed-normal: 300ms;
+  --speed-slow:   600ms;
+}
+
+/* ─────────────────────────────────────────────
+   2. RESET & BOX MODEL
+   ───────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #000;
+  font-family: var(--font-body);
+  color: var(--fg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─────────────────────────────────────────────
+   3. SLIDE WRAPPER — 16:9 ASPECT RATIO
+   ───────────────────────────────────────────── */
+.slides-wrapper {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  overflow: hidden;
+}
+
+/*
+ * The .deck is the 16:9 container.
+ * It scales to fill the viewport without distorting:
+ *   - On wide screens: constrained by height → width = height × (16/9)
+ *   - On tall screens: constrained by width  → height = width × (9/16)
+ */
+.deck {
+  position: relative;
+  width: min(100vw, calc(100vh * 16 / 9));
+  height: min(100vh, calc(100vw * 9 / 16));
+  overflow: hidden;
+  container-type: inline-size; /* enables cqi units */
+}
+
+/* ─────────────────────────────────────────────
+   4. INDIVIDUAL SLIDE
+   ───────────────────────────────────────────── */
+.slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg);
+  color: var(--fg);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: clamp(24px, 5cqi, 72px);
+  overflow: hidden;
+
+  /* Hidden by default — JS adds .active */
+  opacity: 0;
+  pointer-events: none;
+  z-index: 0;
+
+  /* Transition for slide switching */
+  transition:
+    opacity var(--speed-normal) ease,
+    transform var(--speed-normal) ease;
+
+  /* Default entrance: fade + slight upward drift */
+  transform: translateY(12px);
+}
+
+.slide.active {
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 1;
+  transform: translateY(0);
+}
+
+/* Slide exiting to the left */
+.slide.exit-left {
+  opacity: 0;
+  transform: translateX(-3%) scale(0.98);
+  z-index: 0;
+}
+
+/* Slide entering from the right (pre-position) */
+.slide.enter-right {
+  opacity: 0;
+  transform: translateX(3%) scale(0.98);
+}
+
+/* ─────────────────────────────────────────────
+   5. TYPOGRAPHY SCALE (clamp-based)
+   ───────────────────────────────────────────── */
+
+/*
+ * Font sizes scale proportionally with the deck width using cqi.
+ * clamp(MIN, PREFERRED, MAX) prevents sizes from going too small or too large.
+ * The preferred value uses cqi (container query inline) for proportional scaling.
+ */
+
+.slide h1,
+.slide .text-display {
+  font-family: var(--font-heading);
+  font-weight: var(--weight-heading);
+  font-size: clamp(28px, 6.5cqi, 88px);
+  line-height: 1.05;
+  letter-spacing: var(--tracking-tight);
+  color: var(--fg);
+}
+
+.slide h2,
+.slide .text-title {
+  font-family: var(--font-heading);
+  font-weight: var(--weight-heading);
+  font-size: clamp(22px, 4.5cqi, 60px);
+  line-height: 1.1;
+  letter-spacing: var(--tracking-tight);
+  color: var(--fg);
+}
+
+.slide h3,
+.slide .text-subtitle {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: clamp(16px, 2.8cqi, 38px);
+  line-height: 1.2;
+  color: var(--fg-muted);
+}
+
+.slide p,
+.slide .text-body {
+  font-family: var(--font-body);
+  font-weight: var(--weight-body);
+  font-size: clamp(13px, 1.8cqi, 24px);
+  line-height: 1.6;
+  color: var(--fg);
+}
+
+.slide .text-small,
+.slide figcaption,
+.slide .label {
+  font-size: clamp(10px, 1.2cqi, 16px);
+  line-height: 1.4;
+  color: var(--fg-muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.slide .text-mono,
+.slide code,
+.slide pre {
+  font-family: var(--font-mono);
+  font-size: clamp(11px, 1.5cqi, 20px);
+  background: var(--bg-alt);
+  color: var(--fg);
+  padding: 0.15em 0.4em;
+  border-radius: calc(var(--radius) / 2);
+}
+
+.slide pre {
+  padding: clamp(12px, 2cqi, 24px);
+  width: 100%;
+  overflow: auto;
+  line-height: 1.5;
+}
+
+/* ─────────────────────────────────────────────
+   6. LAYOUT UTILITIES
+   ───────────────────────────────────────────── */
+
+/* Centered slide content */
+.slide.centered {
+  align-items: center;
+  text-align: center;
+}
+
+/* Two-column grid */
+.slide .cols-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(16px, 3cqi, 48px);
+  width: 100%;
+}
+
+/* Three-column grid */
+.slide .cols-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: clamp(12px, 2cqi, 32px);
+  width: 100%;
+}
+
+/* Vertical stack with gap */
+.slide .stack {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(8px, 1.5cqi, 24px);
+  width: 100%;
+}
+
+/* Horizontal row */
+.slide .row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: clamp(8px, 1.5cqi, 24px);
+}
+
+/* Card / surface box */
+.slide .card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: clamp(12px, 2cqi, 32px);
+  box-shadow: var(--shadow);
+}
+
+/* Accent pill / tag */
+.slide .tag {
+  display: inline-block;
+  background: var(--accent-light);
+  color: var(--accent);
+  font-size: clamp(10px, 1.2cqi, 15px);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.3em 0.8em;
+  border-radius: 999px;
+}
+
+/* Divider */
+.slide .divider {
+  width: clamp(32px, 6cqi, 80px);
+  height: 3px;
+  background: var(--accent);
+  border: none;
+  margin: clamp(8px, 1.2cqi, 20px) 0;
+}
+
+/* Accent color text */
+.slide .accent { color: var(--accent); }
+.slide .muted  { color: var(--fg-muted); }
+
+/* ─────────────────────────────────────────────
+   7. BULLET LISTS
+   ───────────────────────────────────────────── */
+.slide ul,
+.slide ol {
+  padding-left: 1.4em;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(6px, 1cqi, 16px);
+}
+
+.slide li {
+  font-size: clamp(13px, 1.8cqi, 24px);
+  line-height: 1.5;
+}
+
+.slide ul.clean {
+  list-style: none;
+  padding-left: 0;
+}
+
+.slide ul.clean li::before {
+  content: '—';
+  color: var(--accent);
+  margin-right: 0.6em;
+  font-weight: 700;
+}
+
+/* ─────────────────────────────────────────────
+   8. SLIDE TRANSITION VARIANTS
+   Apply a class to .deck to change all slide transitions.
+   ───────────────────────────────────────────── */
+
+/* Instant cut */
+.deck.transition-cut .slide {
+  transition: none;
+}
+
+/* Cross-dissolve only (no movement) */
+.deck.transition-fade .slide {
+  transform: none !important;
+  transition: opacity var(--speed-normal) ease;
+}
+
+/* Slide horizontally */
+.deck.transition-slide .slide {
+  transform: translateX(0);
+  transition: opacity var(--speed-normal) ease, transform var(--speed-normal) cubic-bezier(0.4,0,0.2,1);
+}
+.deck.transition-slide .slide.exit-left  { transform: translateX(-100%); }
+.deck.transition-slide .slide.enter-right { transform: translateX(100%); }
+
+/* Scale zoom */
+.deck.transition-zoom .slide {
+  transition: opacity var(--speed-normal) ease, transform var(--speed-normal) ease;
+}
+.deck.transition-zoom .slide.exit-left  { transform: scale(0.92); opacity: 0; }
+.deck.transition-zoom .slide.enter-right { transform: scale(1.06); opacity: 0; }
+
+/* ─────────────────────────────────────────────
+   9. SLIDE NUMBER COUNTER
+   ───────────────────────────────────────────── */
+.slide-counter {
+  position: absolute;
+  bottom: clamp(8px, 1.2cqi, 18px);
+  right: clamp(12px, 2cqi, 28px);
+  font-size: clamp(9px, 1cqi, 14px);
+  font-family: var(--font-body);
+  color: var(--fg-muted);
+  opacity: 0.7;
+  z-index: 10;
+  pointer-events: none;
+  letter-spacing: 0.05em;
+}
+
+/* ─────────────────────────────────────────────
+   10. PROGRESS BAR
+   ───────────────────────────────────────────── */
+.progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: var(--accent);
+  transition: width var(--speed-normal) ease;
+  z-index: 10;
+}
+
+/* ─────────────────────────────────────────────
+   11. PRINT / PDF EXPORT
+   Each slide becomes its own page at 16:9.
+   ───────────────────────────────────────────── */
+@media print {
+  html, body {
+    overflow: visible;
+    background: white;
+  }
+
+  .slides-wrapper,
+  .deck {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .slide {
+    position: relative;
+    inset: auto;
+    opacity: 1 !important;
+    transform: none !important;
+    pointer-events: auto;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    page-break-after: always;
+    break-after: page;
+  }
+
+  .nav-dots,
+  .nav-arrows,
+  .slide-counter,
+  .progress-bar {
+    display: none;
+  }
+}
+
+/* ─────────────────────────────────────────────
+   12. FALLBACK: browsers without cqi support
+   Uses vw as approximation (close enough for most cases).
+   ───────────────────────────────────────────── */
+@supports not (font-size: 1cqi) {
+  .slide h1, .slide .text-display {
+    font-size: clamp(28px, 6.5vw, 88px);
+  }
+  .slide h2, .slide .text-title {
+    font-size: clamp(22px, 4.5vw, 60px);
+  }
+  .slide h3, .slide .text-subtitle {
+    font-size: clamp(16px, 2.8vw, 38px);
+  }
+  .slide p, .slide .text-body, .slide li {
+    font-size: clamp(13px, 1.8vw, 24px);
+  }
+  .slide .label, .slide .text-small {
+    font-size: clamp(10px, 1.2vw, 16px);
+  }
+  .slide {
+    padding: clamp(24px, 5vw, 72px);
+  }
+}
