@@ -408,6 +408,67 @@ html, body {
 .slide.active#s5 .tagline { animation: fadeIn .5s ease .6s forwards; }
 
 /* ─────────────────────────────────────────
+   S-WEB — WEBINAR PROGRAMME
+───────────────────────────────────────── */
+#s-web {
+  background: linear-gradient(148deg, var(--bg-dark) 0%, var(--bg-dark-mid) 60%, var(--bg-dark-hi) 100%);
+  color: #fff; padding: clamp(20px,4.5cqi,58px);
+}
+#s-web::before {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background-image: radial-gradient(circle, rgba(255,255,255,.07) 1px, transparent 1px);
+  background-size: clamp(28px,4cqi,52px) clamp(28px,4cqi,52px); opacity:.45;
+}
+#s-web .web-header { margin-top:clamp(28px,5cqi,54px); opacity:0; }
+#s-web .web-kpis {
+  display:flex; gap:clamp(10px,1.8cqi,24px);
+  margin-top:clamp(12px,2cqi,26px); opacity:0;
+}
+.web-kpi {
+  flex:1; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12);
+  border-radius:var(--radius); padding:clamp(12px,1.8cqi,22px) clamp(10px,1.5cqi,18px);
+  display:flex; flex-direction:column; align-items:center; text-align:center; position:relative;
+}
+.web-kpi::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--kp-accent,rgba(255,255,255,.2)); border-radius:var(--radius) var(--radius) 0 0; }
+.web-kpi.total    { --kp-accent: rgba(255,255,255,.35); }
+.web-kpi.done     { --kp-accent: var(--accent-2); }
+.web-kpi.upcoming { --kp-accent: rgba(14,122,78,.7); }
+.web-kpi-num { font-family:var(--font-heading); font-size:clamp(36px,7cqi,96px); font-weight:800; line-height:1; letter-spacing:-.03em; }
+.web-kpi.total    .web-kpi-num { color:#fff; }
+.web-kpi.done     .web-kpi-num { color:var(--accent-2); }
+.web-kpi.upcoming .web-kpi-num { color:rgba(255,255,255,.55); }
+.web-kpi-lbl { font-size:clamp(9px,1cqi,12px); font-weight:700; letter-spacing:.12em; text-transform:uppercase; margin-top:5px; color:rgba(255,255,255,.5); }
+.web-kpi.done .web-kpi-lbl { color:var(--accent-2f); }
+
+#s-web .dot-track {
+  display:flex; gap:clamp(4px,.7cqi,9px); align-items:center;
+  margin-top:clamp(10px,1.8cqi,20px); flex-wrap:nowrap; opacity:0;
+}
+.sess-dot { width:clamp(11px,1.5cqi,19px); height:clamp(11px,1.5cqi,19px); border-radius:50%; flex-shrink:0; }
+.sess-dot.done     { background:var(--accent-2); box-shadow:0 0 0 2px rgba(201,169,110,.25); }
+.sess-dot.upcoming { background:transparent; border:2px solid rgba(255,255,255,.22); }
+.dot-sep { width:1px; height:clamp(16px,2cqi,24px); background:rgba(255,255,255,.15); flex-shrink:0; margin:0 clamp(2px,.4cqi,5px); }
+.dot-track-label { font-size:clamp(9px,.95cqi,12px); color:rgba(255,255,255,.38); margin-left:auto; font-weight:600; letter-spacing:.06em; white-space:nowrap; }
+
+#s-web .cat-grid {
+  display:grid; grid-template-columns:repeat(5,1fr);
+  gap:clamp(7px,1.2cqi,16px); margin-top:clamp(10px,1.8cqi,20px); opacity:0;
+}
+.cat-card {
+  background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1);
+  border-radius:10px; padding:clamp(9px,1.3cqi,16px) clamp(8px,1.1cqi,13px);
+  display:flex; flex-direction:column; gap:clamp(4px,.6cqi,7px);
+}
+.cat-icon { font-size:clamp(16px,2.1cqi,26px); }
+.cat-name { font-size:clamp(10px,1.1cqi,14px); font-weight:700; color:#fff; line-height:1.2; }
+.cat-sub  { font-size:clamp(8px,.85cqi,11px); color:rgba(255,255,255,.42); line-height:1.4; }
+
+.slide.active#s-web .web-header { animation: slideUpFade .5s cubic-bezier(.22,1,.36,1) .08s forwards; }
+.slide.active#s-web .web-kpis   { animation: slideUpFade .5s cubic-bezier(.22,1,.36,1) .22s forwards; }
+.slide.active#s-web .dot-track  { animation: fadeIn .5s ease .48s forwards; }
+.slide.active#s-web .cat-grid   { animation: slideUpFade .5s cubic-bezier(.22,1,.36,1) .58s forwards; }
+
+/* ─────────────────────────────────────────
    S6 — IMPACT / STATS  (stats.html pattern)
 ───────────────────────────────────────── */
 #s6 {
@@ -846,6 +907,79 @@ html, body {
   <div class="tagline">Turning a fragmented ecosystem into a <strong>connected, intelligent network</strong></div>
 </div>
 
+<!-- ════ S-WEB: WEBINAR PROGRAMME ════ -->
+<div class="slide" id="s-web">
+  <div class="logo-badge on-dark fade-in d1">
+    <svg viewBox="0 0 48 48" fill="none">
+      <path d="M8 16L12 10L20 8L28 10L36 8L42 14L40 22L36 28L32 32L28 38L22 34L18 36L14 30L10 24Z" stroke="rgba(255,255,255,.5)" stroke-width="1.5" fill="none"/>
+      <circle cx="16" cy="18" r="2" fill="#c9a96e"/><circle cx="28" cy="14" r="1.5" fill="rgba(255,255,255,.7)"/>
+      <circle cx="36" cy="22" r="2" fill="#c9a96e"/><circle cx="24" cy="28" r="1.5" fill="rgba(255,255,255,.7)"/>
+      <line x1="16" y1="18" x2="28" y2="14" stroke="rgba(255,255,255,.22)" stroke-width="1"/>
+      <line x1="28" y1="14" x2="36" y2="22" stroke="rgba(255,255,255,.22)" stroke-width="1"/>
+      <line x1="36" y1="22" x2="24" y2="28" stroke="rgba(255,255,255,.22)" stroke-width="1"/>
+      <line x1="16" y1="18" x2="24" y2="28" stroke="rgba(255,255,255,.22)" stroke-width="1"/>
+    </svg>
+    <div><div class="lt1">GCC</div><div class="lt2">Health AI</div></div>
+  </div>
+  <div class="web-header">
+    <div class="label">Knowledge Series</div>
+    <h2>Webinar Programme</h2>
+  </div>
+  <div class="web-kpis">
+    <div class="web-kpi total">
+      <div class="web-kpi-num" data-count="15" data-count-duration="900">15</div>
+      <div class="web-kpi-lbl">Total Sessions</div>
+    </div>
+    <div class="web-kpi done">
+      <div class="web-kpi-num" data-count="10" data-count-duration="800">10</div>
+      <div class="web-kpi-lbl">Completed</div>
+    </div>
+    <div class="web-kpi upcoming">
+      <div class="web-kpi-num">5</div>
+      <div class="web-kpi-lbl">Upcoming → Oct 2025</div>
+    </div>
+  </div>
+  <!-- Session dot tracker: 10 gold = done, 5 outlined = upcoming -->
+  <div class="dot-track">
+    <div class="sess-dot done"></div><div class="sess-dot done"></div><div class="sess-dot done"></div>
+    <div class="sess-dot done"></div><div class="sess-dot done"></div><div class="sess-dot done"></div>
+    <div class="sess-dot done"></div><div class="sess-dot done"></div><div class="sess-dot done"></div>
+    <div class="sess-dot done"></div>
+    <div class="dot-sep"></div>
+    <div class="sess-dot upcoming"></div><div class="sess-dot upcoming"></div><div class="sess-dot upcoming"></div>
+    <div class="sess-dot upcoming"></div><div class="sess-dot upcoming"></div>
+    <span class="dot-track-label">10 / 15 sessions complete</span>
+  </div>
+  <!-- Topic categories -->
+  <div class="cat-grid">
+    <div class="cat-card">
+      <div class="cat-icon">🤖</div>
+      <div class="cat-name">Agentic AI</div>
+      <div class="cat-sub">Agentic use in healthcare · Clinical Builder</div>
+    </div>
+    <div class="cat-card">
+      <div class="cat-icon">⚖️</div>
+      <div class="cat-name">Regulation &amp; Accountability</div>
+      <div class="cat-sub">Regulation · Accountability frameworks</div>
+    </div>
+    <div class="cat-card">
+      <div class="cat-icon">🚀</div>
+      <div class="cat-name">Innovation to Adoption</div>
+      <div class="cat-sub">Why AI stalls after pilot · Scaling AI at Novartis</div>
+    </div>
+    <div class="cat-card">
+      <div class="cat-icon">🔭</div>
+      <div class="cat-name">Future Trends</div>
+      <div class="cat-sub">Future Trends in healthcare AI</div>
+    </div>
+    <div class="cat-card">
+      <div class="cat-icon">🏥</div>
+      <div class="cat-name">Specialty AI</div>
+      <div class="cat-sub">AI in Dentistry · AI in Nursing · DATASure</div>
+    </div>
+  </div>
+</div>
+
 <!-- ════ S6: IMPACT / STATS (stats.html pattern) ════ -->
 <div class="slide" id="s6">
   <div class="logo-badge on-dark fade-in d1">
@@ -1048,7 +1182,7 @@ html, body {
 </div>
 <div class="nav-dots" id="navDots" role="tablist" aria-label="Slide navigation"></div>
 <div class="slide-counter" id="slideCounter">1 / 9</div>
-<div class="progress-bar" id="progressBar" role="progressbar" aria-valuemin="1" aria-valuemax="9" aria-valuenow="1"></div>
+<div class="progress-bar" id="progressBar" role="progressbar" aria-valuemin="1" aria-valuemax="10" aria-valuenow="1"></div>
 
 </div><!-- /deck -->
 </div><!-- /slides-wrapper -->
