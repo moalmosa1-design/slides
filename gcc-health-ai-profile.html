@@ -7,68 +7,45 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet">
 <style>
-/* ═══════════════════════════════════════════
-   VIEWPORT-BASE (from viewport-base.css)
-   + GCC Health AI custom preset
-═══════════════════════════════════════════ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  /* ── Custom preset: GCC Health AI ── */
   --bg:           #f4efe6;
   --bg-alt:       #ede6d9;
   --fg:           #1e2d4a;
   --fg-muted:     #6b7280;
   --accent:       #0e7a4e;
-  --accent-light: rgba(14,122,78,0.1);
+  --accent-light: rgba(14,122,78,0.12);
   --accent-2:     #c9a96e;
   --accent-2f:    #dfc18a;
   --border:       rgba(201,169,110,0.22);
   --surface:      #ffffff;
-
-  /* Dark slide variants */
-  --bg-dark:      #0a5c3a;
-  --bg-dark-mid:  #0e7a4e;
-  --bg-dark-hi:   #13a06a;
-
-  /* Typography */
+  --bg-dark:      #071c11;
+  --bg-dark-mid:  #0a5c3a;
+  --bg-dark-hi:   #0e7a4e;
   --font-heading: 'Playfair Display', Georgia, serif;
   --font-body:    'Inter', 'Helvetica Neue', Arial, sans-serif;
-  --font-mono:    'Courier New', monospace;
-  --weight-heading: 800;
-  --weight-body:    400;
-  --tracking-tight: -0.015em;
-
-  /* Effects */
   --radius:       14px;
   --shadow:       0 2px 10px rgba(0,0,0,0.07);
-  --shadow-lg:    0 8px 32px rgba(0,0,0,0.12);
-
-  /* Transition speed */
-  --speed-fast:   150ms;
-  --speed-normal: 380ms;
-  --speed-slow:   600ms;
+  --shadow-lg:    0 8px 32px rgba(0,0,0,0.14);
 }
 
 html, body {
   width: 100%; height: 100%;
   overflow: hidden;
-  background: #0d1a12;
+  background: #050e07;
   font-family: var(--font-body);
   color: var(--fg);
   -webkit-font-smoothing: antialiased;
 }
 
-/* ── Slides wrapper ── */
 .slides-wrapper {
   position: relative;
   width: 100vw; height: 100vh;
   display: flex; align-items: center; justify-content: center;
-  background: #0d1a12;
-  overflow: hidden;
+  background: #050e07;
 }
 
-/* ── Deck: true 16:9 ── */
 .deck {
   position: relative;
   width: min(100vw, calc(100vh * 16 / 9));
@@ -84,303 +61,600 @@ html, body {
   background: var(--bg);
   color: var(--fg);
   display: flex; flex-direction: column;
-  padding: clamp(20px, 5cqi, 60px);
+  padding: clamp(20px, 5cqi, 64px);
   overflow: hidden;
   opacity: 0; pointer-events: none; z-index: 0;
-  transform: translateY(10px);
-  transition: opacity var(--speed-normal) ease, transform var(--speed-normal) ease;
+  transform: translateY(8px);
+  transition: opacity 380ms ease, transform 380ms ease;
 }
-.slide.active {
-  opacity: 1; pointer-events: auto; z-index: 1;
-  transform: translateY(0);
-}
+.slide.active { opacity: 1; pointer-events: auto; z-index: 1; transform: translateY(0); }
 
-/* Dark slide variant */
-.slide.dark {
-  background: linear-gradient(148deg, var(--bg-dark) 0%, var(--bg-dark-mid) 55%, var(--bg-dark-hi) 100%);
-  color: #fff;
-}
-.slide.dark::after {
-  content: ''; position: absolute; bottom: 0; left: 0; right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, transparent, var(--accent-2), transparent);
-}
-
-/* ── Typography scale (cqi) ── */
-.slide h1 {
-  font-family: var(--font-heading);
-  font-weight: var(--weight-heading);
-  font-size: clamp(26px, 6cqi, 80px);
-  line-height: 1.08; letter-spacing: var(--tracking-tight);
-}
-.slide h2 {
-  font-family: var(--font-heading);
-  font-weight: var(--weight-heading);
-  font-size: clamp(20px, 3.8cqi, 52px);
-  line-height: 1.1; letter-spacing: var(--tracking-tight);
-}
-.slide h3 {
-  font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: clamp(14px, 2.4cqi, 32px);
-  line-height: 1.2;
-}
-.slide p, .slide .body-text {
-  font-family: var(--font-body);
-  font-size: clamp(12px, 1.7cqi, 22px);
-  line-height: 1.65; color: var(--fg);
-}
-.slide .label {
-  font-family: var(--font-body);
-  font-size: clamp(9px, 1.1cqi, 14px);
-  font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
-  color: var(--accent-2);
-}
-.slide.dark .label  { color: var(--accent-2f); }
-.slide.dark p,
-.slide.dark .body-text { color: rgba(255,255,255,.7); }
-.slide .accent-text { color: var(--accent); }
-.slide.dark .accent-text { color: var(--accent-2f); }
+/* ── Typography ── */
+.slide h1 { font-family: var(--font-heading); font-weight: 800; font-size: clamp(26px, 6cqi, 82px); line-height: 1.05; letter-spacing: -0.015em; }
+.slide h2 { font-family: var(--font-heading); font-weight: 800; font-size: clamp(20px, 3.8cqi, 54px); line-height: 1.1; letter-spacing: -0.015em; }
+.slide h3 { font-family: var(--font-heading); font-weight: 700; font-size: clamp(14px, 2.2cqi, 30px); line-height: 1.2; }
+.slide p  { font-family: var(--font-body); font-size: clamp(12px, 1.65cqi, 21px); line-height: 1.65; }
+.slide .label { font-size: clamp(9px, 1.05cqi, 13px); font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--accent-2); }
 
 /* ── Layout utilities ── */
-.slide .cols-2 { display:grid; grid-template-columns:1fr 1fr; gap:clamp(14px,2.5cqi,40px); width:100%; }
-.slide .cols-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:clamp(10px,1.8cqi,28px); width:100%; }
-.slide .stack  { display:flex; flex-direction:column; gap:clamp(7px,1.2cqi,18px); width:100%; }
-.slide .row    { display:flex; flex-direction:row; align-items:center; gap:clamp(7px,1.2cqi,18px); }
-.slide .card {
-  background: var(--surface); border:1px solid var(--border);
-  border-radius: var(--radius); padding: clamp(12px,2cqi,28px);
-  box-shadow: var(--shadow);
-}
-.slide.dark .card {
-  background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.12);
-}
-.slide .divider {
-  width: clamp(28px,5cqi,64px); height: 3px; background: var(--accent-2);
-  border: none; margin: clamp(6px,1cqi,14px) 0;
-}
+.cols-2 { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(12px, 2.2cqi, 36px); width: 100%; }
+.cols-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: clamp(10px, 1.8cqi, 28px); width: 100%; }
+.stack  { display: flex; flex-direction: column; gap: clamp(7px, 1.1cqi, 16px); }
+.card   { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: clamp(12px, 2cqi, 26px); box-shadow: var(--shadow); }
 
-/* ── Progress bar ── */
-.progress-bar {
-  position: absolute; bottom: 0; left: 0; height: 3px;
-  background: var(--accent-2);
-  transition: width var(--speed-normal) ease; z-index: 10;
+/* ── Nav chrome — all inside .deck ── */
+.nav-arrows {
+  position: absolute; inset: 0; pointer-events: none; z-index: 20;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 clamp(8px, 1.2cqi, 18px);
 }
+.nav-arrow {
+  pointer-events: auto;
+  background: rgba(0,0,0,0.18); border: none; border-radius: 50%;
+  width: clamp(28px, 3.5cqi, 46px); height: clamp(28px, 3.5cqi, 46px);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; color: #fff;
+  opacity: 0; transition: opacity 200ms, background 200ms;
+}
+.nav-arrow svg { width: clamp(12px, 1.4cqi, 19px); }
+.deck:hover .nav-arrow { opacity: 1; }
+.nav-arrow:hover { background: rgba(0,0,0,0.35); }
+.nav-arrow:disabled { opacity: 0 !important; cursor: default; }
 
-/* ── Slide counter ── */
+.nav-dots {
+  position: absolute;
+  bottom: clamp(10px, 1.4cqi, 20px); left: 50%; transform: translateX(-50%);
+  display: flex; gap: clamp(5px, 0.7cqi, 9px); z-index: 20;
+}
+.nav-dot {
+  width: clamp(6px, 0.75cqi, 10px); height: clamp(6px, 0.75cqi, 10px);
+  border-radius: 50%; background: rgba(255,255,255,0.28);
+  border: none; padding: 0; cursor: pointer;
+  transition: background 200ms, transform 200ms;
+}
+.nav-dot.active { background: var(--accent-2); transform: scale(1.4); }
+
 .slide-counter {
   position: absolute;
-  bottom: clamp(6px,1cqi,14px); right: clamp(10px,1.8cqi,22px);
-  font-size: clamp(8px,.95cqi,12px); font-family: var(--font-body);
-  color: var(--fg-muted); opacity: .65; z-index: 10;
-  pointer-events: none; letter-spacing: .05em;
-}
-.slide.dark .slide-counter { color: rgba(255,255,255,.4); }
-
-/* ── Dot grid bg ── */
-.dot-bg {
-  position: absolute; inset: 0; pointer-events: none;
-  background-image: radial-gradient(circle, rgba(255,255,255,.09) 1px, transparent 1px);
-  background-size: clamp(26px,3.8cqi,48px) clamp(26px,3.8cqi,48px);
-  opacity: .5;
+  bottom: clamp(8px, 1.1cqi, 16px); right: clamp(12px, 2cqi, 26px);
+  font-size: clamp(9px, 1cqi, 13px); font-family: var(--font-body);
+  color: rgba(255,255,255,0.38); z-index: 20;
+  pointer-events: none; letter-spacing: .06em;
 }
 
-/* ═══════════════════════════════════════════
-   ANIMATION PATTERNS (from animation-patterns.md)
-═══════════════════════════════════════════ */
-@keyframes fadeIn  { from { opacity:0 } to { opacity:1 } }
-@keyframes slideUp { from { opacity:0; transform:translateY(18px) } to { opacity:1; transform:none } }
-@keyframes blurIn  { from { opacity:0; filter:blur(10px); transform:scale(.96) } to { opacity:1; filter:blur(0); transform:scale(1) } }
-@keyframes staggerFadeUp { from { opacity:0; transform:translateY(14px) } to { opacity:1; transform:none } }
-
-.fade-in  { opacity:0; animation:none; }
-.slide-up { opacity:0; animation:none; }
-.blur-in  { opacity:0; animation:none; }
-
-.slide.active .fade-in  { animation: fadeIn  .5s ease forwards; }
-.slide.active .slide-up { animation: slideUp .45s cubic-bezier(.22,1,.36,1) forwards; }
-.slide.active .blur-in  { animation: blurIn  .6s cubic-bezier(.16,1,.3,1) forwards; }
-
-/* Stagger */
-.stagger > * { opacity:0; animation:none; }
-.slide.active .stagger > * {
-  animation: staggerFadeUp .4s cubic-bezier(.22,1,.36,1) forwards;
-  animation-delay: calc(var(--i,0) * .1s + .05s);
+.progress-bar {
+  position: absolute; bottom: 0; left: 0; height: 3px;
+  background: var(--accent-2); transition: width 300ms ease; z-index: 20;
 }
-.stagger > *:nth-child(1) { --i:0 } .stagger > *:nth-child(2) { --i:1 }
-.stagger > *:nth-child(3) { --i:2 } .stagger > *:nth-child(4) { --i:3 }
-.stagger > *:nth-child(5) { --i:4 } .stagger > *:nth-child(6) { --i:5 }
 
-/* Delay helpers */
-.d1 { animation-delay:.08s !important; }
-.d2 { animation-delay:.18s !important; }
-.d3 { animation-delay:.28s !important; }
-.d4 { animation-delay:.38s !important; }
-.d5 { animation-delay:.48s !important; }
+/* ── Shared animation keyframes ── */
+@keyframes fadeIn       { from { opacity:0 } to { opacity:1 } }
+@keyframes slideUpFade  { from { opacity:0; transform:translateY(18px) } to { opacity:1; transform:none } }
+@keyframes revealLeft   { from { opacity:0; transform:translateX(-16px) } to { opacity:1; transform:none } }
+@keyframes revealRight  { from { opacity:0; transform:translateX(16px) }  to { opacity:1; transform:none } }
+@keyframes revealCard   { from { opacity:0; transform:translateY(20px) scale(.97) } to { opacity:1; transform:none } }
+@keyframes riseUp       { from { opacity:0; transform:translateY(24px) } to { opacity:1; transform:none } }
+@keyframes fadeDown     { from { opacity:0; transform:translateY(-10px) } to { opacity:1; transform:none } }
+@keyframes growLine     { from { width:0 } to { width: calc(100% * 5/8 - 12.5%) } }
+@keyframes fillBar      { to { width: 50%; } }
+@keyframes blurIn       { from { opacity:0; filter:blur(10px); transform:scale(.96) } to { opacity:1; filter:blur(0); transform:scale(1) } }
 
-/* ═══════════════════════════════════════════
-   LOGO BADGE
-═══════════════════════════════════════════ */
-.logo-badge {
-  position: absolute;
-  top: clamp(12px,1.8cqi,24px); left: clamp(16px,2.5cqi,36px);
-  display: flex; align-items: center; gap: clamp(6px,.9cqi,10px);
-  z-index: 10;
-}
-.logo-badge svg { width: clamp(24px,3cqi,38px); }
+/* Generic reusable helpers (scoped to active slide) */
+.slide.active .fade-in  { animation: fadeIn 0.5s ease forwards; }
+.slide.active .slide-up { animation: slideUpFade 0.48s cubic-bezier(.22,1,.36,1) forwards; }
+.slide.active .blur-in  { animation: blurIn 0.6s cubic-bezier(.16,1,.3,1) forwards; }
+.fade-in, .slide-up, .blur-in { opacity: 0; }
+.d1 { animation-delay: .08s !important; } .d2 { animation-delay: .18s !important; }
+.d3 { animation-delay: .28s !important; } .d4 { animation-delay: .38s !important; }
+.d5 { animation-delay: .50s !important; }
+
+/* ── Logo badge ── */
+.logo-badge { position:absolute; top:clamp(12px,1.8cqi,24px); left:clamp(16px,2.5cqi,36px); display:flex; align-items:center; gap:clamp(6px,.9cqi,10px); z-index:10; }
+.logo-badge svg { width:clamp(22px,2.8cqi,36px); }
 .logo-badge .lt1 { font-size:clamp(12px,1.4cqi,18px); font-weight:800; line-height:1.1; }
-.logo-badge .lt2 { font-size:clamp(7px,.78cqi,10px); font-weight:700; letter-spacing:.13em; text-transform:uppercase; }
-.logo-badge.on-dark .lt1 { color:#fff; }
-.logo-badge.on-dark .lt2 { color:var(--accent-2f); }
-.logo-badge.on-light .lt1 { color:var(--fg); }
-.logo-badge.on-light .lt2 { color:var(--accent); }
+.logo-badge .lt2 { font-size:clamp(7px,.75cqi,10px); font-weight:700; letter-spacing:.13em; text-transform:uppercase; }
+.on-dark .lt1 { color:#fff; } .on-dark .lt2 { color:var(--accent-2f); }
+.on-light .lt1 { color:var(--fg); } .on-light .lt2 { color:var(--accent); }
 
-/* ═══════════════════════════════════════════
-   NAV DOTS
-═══════════════════════════════════════════ */
-.nav-dots {
-  position: fixed;
-  bottom: clamp(10px,1.5vh,20px); left: 50%; transform: translateX(-50%);
-  display: flex; align-items: center; gap: clamp(5px,.8vw,10px); z-index: 100;
-  background: rgba(0,0,0,.3); backdrop-filter: blur(12px);
-  padding: 6px 12px; border-radius: 100px; border:1px solid rgba(255,255,255,.1);
+/* ─────────────────────────────────────────
+   S1 — HERO COVER  (hero.html pattern)
+───────────────────────────────────────── */
+#s1 {
+  padding: clamp(32px, 6cqi, 80px);
+  background: linear-gradient(148deg, #030d07 0%, #062a17 35%, #0a5c3a 70%, #0e7a4e 100%);
+  justify-content: flex-end; align-items: flex-start;
 }
-.nd { width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,.3); cursor:pointer; transition:background .2s, transform .2s; }
-.nd.on { background:var(--accent-2); transform:scale(1.45); }
-.nsep { width:1px; height:12px; background:rgba(255,255,255,.15); margin:0 2px; }
-.nbtn { background:none; border:none; cursor:pointer; color:rgba(255,255,255,.5); font-size:12px; line-height:1; padding:2px 4px; transition:color .2s; }
-.nbtn:hover { color:var(--accent-2); }
+/* Noise texture overlay */
+#s1::before {
+  content:''; position:absolute; inset:0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px; opacity: .04; pointer-events:none; z-index:0;
+}
+/* Radial glow */
+#s1::after {
+  content:''; position:absolute; inset:0; pointer-events:none; z-index:0;
+  background: radial-gradient(ellipse 55% 55% at 72% 38%, rgba(14,122,78,.45) 0%, transparent 65%),
+              radial-gradient(ellipse 35% 40% at 18% 75%, rgba(201,169,110,.18) 0%, transparent 60%);
+}
+#s1 .bg-year {
+  position:absolute; right:-.04em; bottom:-.15em;
+  font-size:clamp(130px,24cqi,340px); font-weight:800; line-height:1;
+  letter-spacing:-.05em; color:rgba(255,255,255,.04);
+  pointer-events:none; user-select:none; z-index:0;
+  font-family:var(--font-body);
+  opacity:0;
+}
+#s1 .content { position:relative; z-index:2; max-width:80%; }
+#s1 .kicker {
+  display:inline-flex; align-items:center; gap:.6em;
+  font-size:clamp(10px,1.2cqi,15px); font-weight:700;
+  letter-spacing:.13em; text-transform:uppercase; color:var(--accent-2f);
+  margin-bottom:clamp(12px,1.6cqi,24px);
+  opacity:0;
+}
+#s1 .kicker::before {
+  content:''; display:inline-block;
+  width:clamp(16px,2.2cqi,30px); height:2px; background:var(--accent-2);
+}
+#s1 h1 { color:#fff; margin-bottom:clamp(12px,1.8cqi,26px); opacity:0; }
+#s1 h1 em {
+  font-style:normal;
+  background:linear-gradient(90deg, var(--accent-2f), var(--accent-2));
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+}
+#s1 .subtitle { color:rgba(255,255,255,.7); font-size:clamp(13px,1.9cqi,24px); max-width:48ch; opacity:0; }
+#s1 .brand {
+  position:absolute; bottom:clamp(20px,2.5cqi,36px); right:clamp(24px,3cqi,44px); z-index:2;
+  font-size:clamp(10px,1.05cqi,14px); font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+  color:rgba(255,255,255,.3); opacity:0;
+}
 
-/* ═══════════════════════════════════════════
-   SLIDE-SPECIFIC STYLES
-═══════════════════════════════════════════ */
+.slide.active#s1 .kicker  { animation: slideUpFade .5s ease .1s forwards; }
+.slide.active#s1 h1        { animation: slideUpFade .55s cubic-bezier(.22,1,.36,1) .25s forwards; }
+.slide.active#s1 .subtitle { animation: slideUpFade .5s ease .45s forwards; }
+.slide.active#s1 .bg-year  { animation: fadeIn .8s ease .3s forwards; }
+.slide.active#s1 .brand    { animation: fadeIn .5s ease .7s forwards; }
+.slide.active#s1 .logo-badge { animation: fadeIn .4s ease .05s forwards; opacity:0; }
 
-/* S1 Cover */
-#s1 { align-items:center; justify-content:center; text-align:center; }
-#s1 .glow { position:absolute; width:60%; padding-bottom:60%; border-radius:50%; background:radial-gradient(circle,rgba(19,160,106,.22) 0%,transparent 70%); top:50%; left:50%; transform:translate(-50%,-50%); pointer-events:none; }
-#s1 .hero { position:relative; z-index:2; max-width:75%; }
-#s1 .pill { display:inline-flex; align-items:center; gap:8px; background:rgba(201,169,110,.18); border:1px solid rgba(201,169,110,.38); border-radius:100px; padding:clamp(4px,.7cqi,9px) clamp(12px,2cqi,22px); margin-bottom:clamp(16px,2.5cqi,32px); }
-#s1 .pill span { color:var(--accent-2f); font-size:clamp(8px,.95cqi,13px); font-weight:600; letter-spacing:.13em; text-transform:uppercase; }
-#s1 .pill::before { content:''; width:5px; height:5px; border-radius:50%; background:var(--accent-2); flex-shrink:0; }
-#s1 h1 em { font-style:normal; background:linear-gradient(90deg,var(--accent-2f),var(--accent-2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
-#s1 .sub { color:rgba(255,255,255,.65); margin-top:clamp(10px,1.5cqi,18px); font-size:clamp(11px,1.5cqi,18px); }
+/* ─────────────────────────────────────────
+   S2 — ABOUT  (split.html pattern)
+───────────────────────────────────────── */
+#s2 {
+  padding: 0;
+  display: grid;
+  grid-template-columns: 42% 58%;
+  background: var(--bg);
+}
+#s2 .split-left {
+  background: linear-gradient(155deg, var(--bg-dark), var(--bg-dark-mid));
+  display:flex; flex-direction:column; justify-content:center;
+  padding: clamp(28px,5cqi,68px); position:relative; overflow:hidden;
+  color:#fff;
+}
+#s2 .split-left::before {
+  content:''; position:absolute; width:75%; aspect-ratio:1;
+  border-radius:50%; background:rgba(255,255,255,.05);
+  bottom:-25%; right:-20%; pointer-events:none;
+}
+#s2 .split-left .eyebrow {
+  font-size:clamp(9px,1.1cqi,13px); font-weight:700; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--accent-2f);
+  margin-bottom:clamp(8px,1.1cqi,16px); opacity:0;
+}
+#s2 .split-left h2 {
+  color:#fff; font-size:clamp(22px,4.2cqi,56px);
+  font-weight:800; line-height:1; margin-bottom:clamp(12px,1.5cqi,20px); opacity:0;
+}
+#s2 .split-left .divider {
+  width:clamp(24px,3.5cqi,48px); height:3px; background:var(--accent-2);
+  margin-bottom:clamp(12px,1.5cqi,20px); opacity:0;
+}
+#s2 .split-left .big-stat {
+  font-family:var(--font-heading); font-size:clamp(44px,8cqi,108px);
+  font-weight:800; color:#fff; line-height:1; letter-spacing:-.03em; opacity:0;
+}
+#s2 .split-left .big-stat em { font-style:normal; color:var(--accent-2f); font-size:.55em; }
+#s2 .split-left .stat-sub { font-size:clamp(9px,.95cqi,12px); color:rgba(255,255,255,.5); margin-top:4px; letter-spacing:.07em; text-transform:uppercase; opacity:0; }
+#s2 .split-left .section-label {
+  position:absolute; bottom:clamp(16px,2cqi,26px); left:clamp(28px,5cqi,68px);
+  font-size:clamp(9px,.95cqi,12px); font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+  color:rgba(255,255,255,.3);
+}
+#s2 .split-right {
+  background: var(--bg);
+  display:flex; flex-direction:column; justify-content:center;
+  padding:clamp(28px,5cqi,68px);
+}
+#s2 .split-right .intro {
+  font-size:clamp(10px,1.15cqi,14px); font-weight:700; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--accent); margin-bottom:clamp(10px,1.4cqi,18px); opacity:0;
+}
+#s2 .split-right ul { list-style:none; display:flex; flex-direction:column; gap:clamp(10px,1.4cqi,20px); }
+#s2 .split-right li { display:flex; align-items:flex-start; gap:clamp(9px,1.2cqi,16px); opacity:0; }
+#s2 .split-right .bmark {
+  flex-shrink:0; width:clamp(20px,2.4cqi,30px); height:clamp(20px,2.4cqi,30px);
+  border-radius:50%; background:var(--accent); display:flex; align-items:center;
+  justify-content:center; color:#fff; font-size:clamp(9px,1.1cqi,13px); font-weight:800; margin-top:.1em;
+}
+#s2 .split-right .btext strong { display:block; font-size:clamp(13px,1.6cqi,20px); font-weight:700; color:var(--fg); line-height:1.2; margin-bottom:.15em; }
+#s2 .split-right .btext span   { font-size:clamp(11px,1.25cqi,15px); color:var(--fg-muted); line-height:1.4; }
 
-/* S2 About */
-#s2 .header { margin-top:clamp(26px,5cqi,52px); margin-bottom:clamp(12px,1.8cqi,22px); }
-#s2 .body { display:flex; gap:clamp(20px,3.5cqi,50px); flex:1; align-items:center; }
-#s2 .about-card { background:linear-gradient(145deg,var(--bg-dark),var(--bg-dark-mid)); border-radius:18px; padding:clamp(18px,2.8cqi,34px) clamp(16px,2.5cqi,30px); width:clamp(160px,21cqi,260px); text-align:center; box-shadow:0 8px 32px rgba(10,92,58,.25); flex-shrink:0; }
-#s2 .about-card .big { font-family:var(--font-heading); font-size:clamp(32px,5.5cqi,70px); font-weight:800; color:#fff; line-height:1; }
-#s2 .about-card .sm { font-size:clamp(9px,1cqi,13px); color:rgba(255,255,255,.65); margin-top:3px; letter-spacing:.07em; text-transform:uppercase; font-weight:600; }
-#s2 .about-card hr { height:1px; background:rgba(201,169,110,.3); border:none; margin:clamp(10px,1.5cqi,16px) 0; }
-#s2 .about-card .sub2 { font-size:clamp(9px,.92cqi,12px); color:rgba(255,255,255,.55); line-height:1.55; }
+.slide.active#s2 .split-left .eyebrow  { animation: revealLeft .45s ease .1s forwards; }
+.slide.active#s2 .split-left h2        { animation: revealLeft .5s cubic-bezier(.22,1,.36,1) .2s forwards; }
+.slide.active#s2 .split-left .divider  { animation: revealLeft .4s ease .32s forwards; }
+.slide.active#s2 .split-left .big-stat { animation: revealLeft .5s cubic-bezier(.22,1,.36,1) .38s forwards; }
+.slide.active#s2 .split-left .stat-sub { animation: revealLeft .4s ease .5s forwards; }
+.slide.active#s2 .split-right .intro   { animation: revealRight .4s ease .28s forwards; }
+.slide.active#s2 .split-right li:nth-child(1) { animation: revealRight .4s ease .38s forwards; }
+.slide.active#s2 .split-right li:nth-child(2) { animation: revealRight .4s ease .50s forwards; }
+.slide.active#s2 .split-right li:nth-child(3) { animation: revealRight .4s ease .62s forwards; }
+.slide.active#s2 .split-right li:nth-child(4) { animation: revealRight .4s ease .74s forwards; }
 
-/* S3 Problem */
-#s3 { align-items:center; justify-content:center; text-align:center; }
-#s3 .content { position:relative; z-index:2; max-width:88%; }
-#s3 h2 { color:#fff; margin:clamp(8px,1.2cqi,16px) 0 clamp(18px,3cqi,36px); }
+/* ─────────────────────────────────────────
+   S3 — PROBLEM  (dark, numbered cards)
+───────────────────────────────────────── */
+#s3 {
+  background:linear-gradient(148deg, var(--bg-dark) 0%, var(--bg-dark-mid) 60%, var(--bg-dark-hi) 100%);
+  color:#fff; justify-content:center; align-items:center; text-align:center;
+}
+#s3::before {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background-image: radial-gradient(circle, rgba(255,255,255,.07) 1px, transparent 1px);
+  background-size: clamp(28px,4cqi,52px) clamp(28px,4cqi,52px); opacity:.5;
+}
+#s3 .content { position:relative; z-index:2; width:92%; }
+#s3 .label { color:var(--accent-2f); margin-bottom:clamp(6px,.9cqi,10px); opacity:0; }
+#s3 h2 { color:#fff; margin-bottom:clamp(18px,3cqi,38px); opacity:0; }
 #s3 h2 em { font-style:italic; color:var(--accent-2f); }
-.prob-card { border-top:3px solid var(--accent-2); }
-.prob-card .pi { font-size:clamp(20px,2.8cqi,36px); margin-bottom:clamp(6px,1cqi,10px); }
-.prob-card h3 { font-size:clamp(11px,1.3cqi,17px); font-weight:700; color:#fff; margin-bottom:4px; }
-.prob-card p  { font-size:clamp(9px,.95cqi,13px); color:rgba(255,255,255,.58); line-height:1.5; }
+#s3 .prob-grid { display:grid; grid-template-columns:1fr 1fr; gap:clamp(10px,1.6cqi,22px); }
+.prob-card {
+  background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.1);
+  border-top:3px solid var(--accent-2); border-radius:var(--radius);
+  padding:clamp(14px,2.2cqi,28px); display:flex; align-items:flex-start;
+  gap:clamp(10px,1.4cqi,18px); text-align:left; opacity:0;
+}
+.prob-num {
+  flex-shrink:0; width:clamp(28px,3.2cqi,40px); height:clamp(28px,3.2cqi,40px);
+  border-radius:50%; background:var(--accent); display:flex; align-items:center;
+  justify-content:center; font-size:clamp(11px,1.3cqi,16px); font-weight:800; color:#fff;
+}
+.prob-card h3 { font-size:clamp(12px,1.45cqi,18px); font-weight:700; color:#fff; margin-bottom:4px; }
+.prob-card p  { font-size:clamp(10px,1.05cqi,13px); color:rgba(255,255,255,.55); line-height:1.5; }
 
-/* S4 Members */
-#s4 .top { display:flex; gap:clamp(18px,3cqi,44px); flex:1; margin-top:clamp(26px,5cqi,52px); }
-#s4 .stat-col { flex:0 0 auto; display:flex; flex-direction:column; justify-content:center; padding-right:clamp(18px,3cqi,44px); border-right:1px solid var(--bg-alt); position:relative; }
-#s4 .stat-col::after { content:''; position:absolute; right:-1px; top:10%; bottom:10%; width:3px; background:linear-gradient(180deg,transparent,var(--accent-2),transparent); }
-#s4 .stat-num { font-family:var(--font-heading); font-size:clamp(48px,8cqi,104px); font-weight:800; color:var(--accent); line-height:1; letter-spacing:-.03em; }
-#s4 .stat-lbl { font-size:clamp(10px,1.1cqi,14px); font-weight:700; color:var(--fg); letter-spacing:.07em; text-transform:uppercase; margin-top:3px; }
-#s4 .mcard { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:clamp(9px,1.3cqi,15px) clamp(11px,1.5cqi,17px); display:flex; align-items:center; gap:clamp(8px,1.1cqi,13px); box-shadow:var(--shadow); }
-#s4 .mcard-icon { font-size:clamp(14px,1.9cqi,24px); flex-shrink:0; }
-#s4 .mcard-name { font-size:clamp(10px,1.05cqi,14px); font-weight:600; color:var(--fg); }
-#s4 .geo { display:flex; gap:clamp(7px,1.1cqi,15px); flex-wrap:wrap; margin-top:clamp(10px,1.5cqi,18px); padding-top:clamp(10px,1.5cqi,16px); border-top:1px solid var(--bg-alt); align-items:center; }
+.slide.active#s3 .label  { animation: slideUpFade .4s ease .1s forwards; }
+.slide.active#s3 h2      { animation: slideUpFade .5s cubic-bezier(.22,1,.36,1) .2s forwards; }
+.slide.active#s3 .prob-card:nth-child(1) { animation: revealCard .5s cubic-bezier(.22,1,.36,1) .3s forwards; }
+.slide.active#s3 .prob-card:nth-child(2) { animation: revealCard .5s cubic-bezier(.22,1,.36,1) .42s forwards; }
+.slide.active#s3 .prob-card:nth-child(3) { animation: revealCard .5s cubic-bezier(.22,1,.36,1) .54s forwards; }
+.slide.active#s3 .prob-card:nth-child(4) { animation: revealCard .5s cubic-bezier(.22,1,.36,1) .66s forwards; }
+
+/* ─────────────────────────────────────────
+   S4 — MEMBERS
+───────────────────────────────────────── */
+#s4 { padding: clamp(20px,4.5cqi,58px); }
+#s4 .top-row {
+  display:flex; gap:clamp(20px,3.5cqi,50px); margin-top:clamp(32px,5.5cqi,62px); flex:1;
+}
+#s4 .stat-col {
+  flex:0 0 auto; display:flex; flex-direction:column; justify-content:center;
+  padding-right:clamp(18px,3cqi,44px); border-right:1px solid var(--bg-alt); position:relative;
+}
+#s4 .stat-col::after {
+  content:''; position:absolute; right:-1px; top:10%; bottom:10%;
+  width:3px; background:linear-gradient(180deg,transparent,var(--accent-2),transparent);
+}
+#s4 .stat-num { font-family:var(--font-heading); font-size:clamp(48px,8cqi,106px); font-weight:800; color:var(--accent); line-height:1; letter-spacing:-.03em; opacity:0; }
+#s4 .stat-lbl { font-size:clamp(9px,1.05cqi,13px); font-weight:700; color:var(--fg); letter-spacing:.08em; text-transform:uppercase; margin-top:3px; opacity:0; }
+#s4 .right-col { flex:1; display:flex; flex-direction:column; justify-content:center; }
+#s4 .label { margin-bottom:clamp(8px,1.2cqi,14px); opacity:0; }
+#s4 .mcard-grid { display:grid; grid-template-columns:1fr 1fr; gap:clamp(7px,1.1cqi,14px); }
+.mcard {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:10px; padding:clamp(9px,1.3cqi,15px) clamp(10px,1.5cqi,17px);
+  display:flex; align-items:center; gap:clamp(7px,1cqi,12px);
+  box-shadow:var(--shadow); opacity:0;
+}
+.mcard-icon { font-size:clamp(14px,1.8cqi,22px); flex-shrink:0; }
+.mcard-name { font-size:clamp(10px,1.05cqi,13px); font-weight:600; color:var(--fg); }
+#s4 .geo {
+  display:flex; gap:clamp(6px,1cqi,14px); flex-wrap:wrap;
+  margin-top:clamp(10px,1.5cqi,18px); padding-top:clamp(10px,1.5cqi,16px);
+  border-top:1px solid var(--bg-alt); align-items:center; opacity:0;
+}
 #s4 .geo-note { font-size:clamp(8px,.85cqi,11px); color:var(--fg-muted); flex:1; min-width:80px; }
 .geo-tag { display:flex; align-items:center; gap:4px; font-size:clamp(8px,.83cqi,11px); font-weight:600; color:var(--fg); }
 .geo-tag .code { background:var(--accent); color:#fff; font-size:clamp(7px,.7cqi,9px); font-weight:700; border-radius:3px; padding:1px 4px; letter-spacing:.05em; }
 
-/* S5 How we work */
-#s5 .header { margin-top:clamp(26px,5cqi,52px); margin-bottom:clamp(12px,1.8cqi,22px); text-align:center; }
-#s5 .flow { display:flex; align-items:stretch; flex:1; gap:0; }
-.fcard { flex:1; border-radius:var(--radius); padding:clamp(16px,2.5cqi,32px) clamp(14px,2cqi,26px); display:flex; flex-direction:column; align-items:center; text-align:center; }
-.fcard.fc-dark { background:linear-gradient(155deg,var(--bg-dark),var(--bg-dark-mid)); box-shadow:0 4px 18px rgba(10,92,58,.2); }
-.fcard.fc-light { background:var(--surface); border:1px solid var(--border); box-shadow:var(--shadow); }
+.slide.active#s4 .label    { animation: slideUpFade .4s ease .12s forwards; }
+.slide.active#s4 h2        { animation: slideUpFade .5s cubic-bezier(.22,1,.36,1) .08s forwards; }
+.slide.active#s4 .stat-num { animation: blurIn .6s cubic-bezier(.16,1,.3,1) .2s forwards; }
+.slide.active#s4 .stat-lbl { animation: fadeIn .4s ease .5s forwards; }
+.slide.active#s4 .right-col .label { animation: slideUpFade .4s ease .3s forwards; }
+.slide.active#s4 .mcard:nth-child(1) { animation: revealCard .45s cubic-bezier(.22,1,.36,1) .35s forwards; }
+.slide.active#s4 .mcard:nth-child(2) { animation: revealCard .45s cubic-bezier(.22,1,.36,1) .44s forwards; }
+.slide.active#s4 .mcard:nth-child(3) { animation: revealCard .45s cubic-bezier(.22,1,.36,1) .53s forwards; }
+.slide.active#s4 .mcard:nth-child(4) { animation: revealCard .45s cubic-bezier(.22,1,.36,1) .62s forwards; }
+.slide.active#s4 .mcard:nth-child(5) { animation: revealCard .45s cubic-bezier(.22,1,.36,1) .71s forwards; }
+.slide.active#s4 .mcard:nth-child(6) { animation: revealCard .45s cubic-bezier(.22,1,.36,1) .80s forwards; }
+.slide.active#s4 .geo { animation: fadeIn .5s ease .85s forwards; }
+#s4 h2 { opacity:0; }
+
+/* ─────────────────────────────────────────
+   S5 — HOW WE WORK
+───────────────────────────────────────── */
+#s5 { padding: clamp(20px,4.5cqi,58px); }
+#s5 .header { margin-top:clamp(28px,5cqi,54px); margin-bottom:clamp(12px,2cqi,24px); text-align:center; opacity:0; }
+#s5 .flow { display:flex; align-items:stretch; flex:1; gap:0; opacity:0; }
+.fcard { flex:1; border-radius:var(--radius); padding:clamp(16px,2.4cqi,32px) clamp(12px,1.8cqi,24px); display:flex; flex-direction:column; align-items:center; text-align:center; }
+.fcard.dark  { background:linear-gradient(155deg,var(--bg-dark),var(--bg-dark-mid)); box-shadow:0 4px 18px rgba(10,92,58,.2); }
+.fcard.light { background:var(--surface); border:1px solid var(--border); box-shadow:var(--shadow); }
 .farrow { display:flex; align-items:center; padding:0 clamp(5px,.9cqi,12px); flex-shrink:0; }
-.farrow svg { width:clamp(16px,2cqi,24px); opacity:.4; }
-.ficon { width:clamp(36px,5cqi,58px); height:clamp(36px,5cqi,58px); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:clamp(16px,2.2cqi,28px); margin-bottom:clamp(7px,1cqi,12px); flex-shrink:0; }
-.fcard.fc-dark .ficon { background:rgba(255,255,255,.15); }
-.fcard.fc-light .ficon { background:var(--accent-light); }
-.ftitle { font-size:clamp(13px,1.7cqi,22px); font-weight:800; margin-bottom:clamp(5px,.9cqi,10px); }
-.fcard.fc-dark .ftitle { color:var(--accent-2f); font-family:var(--font-heading); }
-.fcard.fc-light .ftitle { color:var(--accent); font-family:var(--font-heading); }
-.fitems { display:flex; flex-direction:column; gap:clamp(3px,.6cqi,7px); }
+.farrow svg { width:clamp(14px,1.8cqi,22px); opacity:.4; }
+.ficon { width:clamp(36px,5cqi,58px); height:clamp(36px,5cqi,58px); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:clamp(16px,2.2cqi,28px); margin-bottom:clamp(7px,1cqi,12px); }
+.fcard.dark  .ficon  { background:rgba(255,255,255,.15); }
+.fcard.light .ficon  { background:var(--accent-light); }
+.ftitle { font-family:var(--font-heading); font-size:clamp(14px,1.8cqi,23px); font-weight:800; margin-bottom:clamp(5px,.9cqi,10px); }
+.fcard.dark  .ftitle { color:var(--accent-2f); }
+.fcard.light .ftitle { color:var(--accent); }
+.fitems { display:flex; flex-direction:column; gap:clamp(3px,.6cqi,6px); }
 .fitem { font-size:clamp(10px,1cqi,13px); }
-.fcard.fc-dark .fitem { color:rgba(255,255,255,.68); }
-.fcard.fc-light .fitem { color:var(--fg-muted); }
-#s5 .tagline { text-align:center; padding-top:clamp(8px,1.2cqi,14px); font-size:clamp(10px,1.1cqi,14px); color:var(--fg-muted); }
+.fcard.dark  .fitem { color:rgba(255,255,255,.65); }
+.fcard.light .fitem { color:var(--fg-muted); }
+#s5 .tagline { text-align:center; padding-top:clamp(8px,1.2cqi,14px); font-size:clamp(10px,1.1cqi,14px); color:var(--fg-muted); opacity:0; }
 #s5 .tagline strong { color:var(--accent); }
 
-/* S6 Impact */
-#s6 { align-items:center; justify-content:center; text-align:center; }
-#s6 .content { position:relative; z-index:2; width:90%; }
-#s6 h2 { color:#fff; margin:clamp(8px,1.2cqi,14px) 0 clamp(18px,3cqi,36px); }
-.scard { border-radius:var(--radius); padding:clamp(16px,2.4cqi,28px) clamp(14px,2cqi,22px); text-align:center; border-top:3px solid var(--accent-2); }
-.scard.dark { background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12); border-top:3px solid var(--accent-2); }
-.snum { font-family:var(--font-heading); font-size:clamp(28px,4.5cqi,58px); font-weight:800; color:#fff; line-height:1; }
-.sunit { font-size:clamp(16px,2cqi,26px); color:var(--accent-2); font-weight:700; }
-.slbl { font-size:clamp(9px,.95cqi,12px); color:rgba(255,255,255,.55); margin-top:5px; line-height:1.4; }
+.slide.active#s5 .header  { animation: slideUpFade .5s cubic-bezier(.22,1,.36,1) .08s forwards; }
+.slide.active#s5 .flow    { animation: slideUpFade .5s cubic-bezier(.22,1,.36,1) .22s forwards; }
+.slide.active#s5 .tagline { animation: fadeIn .5s ease .6s forwards; }
 
-/* S7 Vision & roadmap */
-#s7 .header { margin-top:clamp(26px,5cqi,52px); margin-bottom:clamp(8px,1.2cqi,16px); }
-#s7 .vision-stmt { font-size:clamp(12px,1.4cqi,18px); color:var(--fg); line-height:1.65; margin-bottom:clamp(14px,2.2cqi,26px); }
-#s7 .vision-stmt strong { color:var(--accent); }
-#s7 .gold-rule { height:2px; background:linear-gradient(90deg,transparent,var(--accent-2),transparent); margin-bottom:clamp(12px,2cqi,22px); }
-#s7 .timeline { display:flex; gap:0; align-items:flex-start; flex:1; }
-.tphase { flex:1; position:relative; }
-.tphase::before { content:''; position:absolute; top:clamp(13px,1.9cqi,19px); left:50%; right:-50%; height:2px; background:linear-gradient(90deg,var(--accent-2),rgba(201,169,110,.2)); }
-.tphase:last-child::before { display:none; }
-.tnode { width:clamp(26px,3cqi,36px); height:clamp(26px,3cqi,36px); border-radius:50%; background:var(--accent); border:3px solid var(--bg); display:flex; align-items:center; justify-content:center; font-size:clamp(9px,1cqi,13px); font-weight:800; color:#fff; margin:0 auto clamp(7px,1.1cqi,12px); position:relative; z-index:1; box-shadow:0 0 0 4px rgba(14,122,78,.18); }
-.tphase-title  { text-align:center; font-size:clamp(10px,1.1cqi,14px); font-weight:700; color:var(--accent); margin-bottom:3px; }
-.tphase-period { text-align:center; font-size:clamp(8px,.84cqi,11px); font-weight:600; color:var(--accent-2); letter-spacing:.08em; text-transform:uppercase; margin-bottom:clamp(5px,.8cqi,8px); }
-.tphase-items  { text-align:center; font-size:clamp(8px,.85cqi,11px); color:var(--fg-muted); line-height:1.6; }
+/* ─────────────────────────────────────────
+   S6 — IMPACT / STATS  (stats.html pattern)
+───────────────────────────────────────── */
+#s6 {
+  background: #071c11;
+  justify-content:center; align-items:center;
+}
+#s6::before {
+  content:''; position:absolute; inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+  background-size: clamp(30px,4cqi,60px) clamp(30px,4cqi,60px); z-index:0;
+}
+#s6::after {
+  content:''; position:absolute; bottom:-20%; left:50%; transform:translateX(-50%);
+  width:80%; height:60%;
+  background:radial-gradient(ellipse at center, rgba(14,122,78,.2) 0%, transparent 70%);
+  z-index:0;
+}
+#s6 .stats-content { position:relative; z-index:1; width:90%; }
+#s6 .stats-header {
+  display:flex; align-items:center; gap:clamp(10px,1.2cqi,18px);
+  margin-bottom:clamp(18px,3cqi,42px); opacity:0;
+}
+#s6 .stats-header .sh-label { font-size:clamp(10px,1.2cqi,14px); font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--accent-2); white-space:nowrap; }
+#s6 .stats-header .sh-rule  { flex:1; height:1px; background:rgba(201,169,110,.28); }
+#s6 .stats-header .sh-title { font-size:clamp(14px,2cqi,26px); font-weight:700; color:#fff; white-space:nowrap; }
+#s6 .kpi-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(12px,2cqi,30px); }
+.kpi-card {
+  background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08);
+  border-radius:clamp(8px,1cqi,14px); padding:clamp(16px,2.4cqi,34px);
+  position:relative; overflow:hidden; opacity:0;
+}
+.kpi-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:3px;
+  background:var(--kpi-accent, var(--accent-2));
+}
+.kpi-trend {
+  display:inline-flex; align-items:center; gap:.3em;
+  font-size:clamp(9px,1cqi,13px); font-weight:600;
+  padding:.25em .6em; border-radius:999px; margin-bottom:clamp(8px,1.2cqi,16px);
+  background:rgba(14,122,78,.2); color:#4ade80;
+}
+.kpi-number {
+  font-size:clamp(38px,7.5cqi,104px); font-weight:800; line-height:.9;
+  letter-spacing:-.04em; color:#fff; display:block;
+  margin-bottom:clamp(8px,1cqi,14px);
+}
+.kpi-label { font-size:clamp(11px,1.4cqi,17px); font-weight:600; color:rgba(255,255,255,.85); margin-bottom:clamp(4px,.5cqi,7px); }
+.kpi-desc  { font-size:clamp(9px,1.05cqi,13px); color:rgba(255,255,255,.38); line-height:1.45; }
+.kpi-spark { display:flex; align-items:flex-end; gap:clamp(2px,.3cqi,4px); height:clamp(18px,2.2cqi,30px); margin-top:clamp(10px,1.4cqi,18px); }
+.kpi-bar { flex:1; border-radius:2px 2px 0 0; background:var(--kpi-accent, var(--accent-2)); opacity:.4; }
+.kpi-bar.hi { opacity:1; }
+#s6 .stats-footnote { margin-top:clamp(10px,1.6cqi,22px); font-size:clamp(9px,.95cqi,12px); color:rgba(255,255,255,.22); opacity:0; }
 
-/* S8 Team */
-#s8 .header { margin-top:clamp(26px,5cqi,52px); text-align:center; margin-bottom:clamp(6px,.9cqi,10px); }
-#s8 .vision-line { text-align:center; font-size:clamp(11px,1.2cqi,16px); color:var(--fg-muted); margin-bottom:clamp(12px,2cqi,22px); }
+.slide.active#s6 .stats-header { animation: fadeDown .5s ease .05s forwards; }
+.slide.active#s6 .kpi-card:nth-child(1) { animation: revealCard .5s cubic-bezier(.22,1,.36,1) .2s forwards; }
+.slide.active#s6 .kpi-card:nth-child(2) { animation: revealCard .5s cubic-bezier(.22,1,.36,1) .35s forwards; }
+.slide.active#s6 .kpi-card:nth-child(3) { animation: revealCard .5s cubic-bezier(.22,1,.36,1) .5s forwards; }
+.slide.active#s6 .stats-footnote { animation: fadeIn .4s ease .75s forwards; }
+
+/* ─────────────────────────────────────────
+   S7 — ROADMAP  (timeline.html pattern)
+───────────────────────────────────────── */
+#s7 {
+  background: var(--bg);
+  justify-content: center;
+}
+#s7 .tl-header {
+  display:flex; align-items:baseline; justify-content:space-between;
+  margin-bottom:clamp(16px,2.8cqi,42px); opacity:0;
+}
+#s7 .tl-header h2 { color:var(--fg); }
+#s7 .tl-header .tl-sub { font-size:clamp(11px,1.3cqi,17px); color:var(--fg-muted); }
+#s7 .tl-vision {
+  font-size:clamp(12px,1.4cqi,18px); line-height:1.65; color:var(--fg-muted);
+  margin-bottom:clamp(14px,2.2cqi,26px); opacity:0;
+}
+#s7 .tl-vision strong { color:var(--accent); }
+#s7 .tl-rule { height:2px; background:linear-gradient(90deg,transparent,var(--accent-2),transparent); margin-bottom:clamp(14px,2.2cqi,28px); opacity:0; }
+.timeline-track {
+  position:relative; display:grid; grid-template-columns:repeat(4,1fr); gap:0; flex:1;
+}
+.timeline-track::before {
+  content:''; position:absolute;
+  top:clamp(14px,1.8cqi,26px); left:calc(100%/8); right:calc(100%/8);
+  height:3px; background:var(--bg-alt); z-index:0;
+}
+.timeline-track::after {
+  content:''; position:absolute;
+  top:clamp(14px,1.8cqi,26px); left:calc(100%/8);
+  width:0; height:3px;
+  background:linear-gradient(90deg,var(--accent),var(--accent-2));
+  z-index:0;
+}
+.slide.active#s7 .timeline-track::after { animation: growLine 1s cubic-bezier(.22,1,.36,1) .8s forwards; }
+.tl-step {
+  display:flex; flex-direction:column; align-items:center; text-align:center;
+  position:relative; z-index:1; padding:0 clamp(6px,1cqi,14px); opacity:0;
+}
+.tl-step:nth-child(1) { animation: none; }
+.tl-step:nth-child(2) { animation: none; }
+.tl-step:nth-child(3) { animation: none; }
+.tl-step:nth-child(4) { animation: none; }
+.slide.active#s7 .tl-step:nth-child(1) { animation: riseUp .5s cubic-bezier(.22,1,.36,1) .25s forwards; }
+.slide.active#s7 .tl-step:nth-child(2) { animation: riseUp .5s cubic-bezier(.22,1,.36,1) .42s forwards; }
+.slide.active#s7 .tl-step:nth-child(3) { animation: riseUp .5s cubic-bezier(.22,1,.36,1) .59s forwards; }
+.slide.active#s7 .tl-step:nth-child(4) { animation: riseUp .5s cubic-bezier(.22,1,.36,1) .76s forwards; }
+.tl-node {
+  width:clamp(28px,3.4cqi,48px); height:clamp(28px,3.4cqi,48px); border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:clamp(11px,1.4cqi,18px); font-weight:800;
+  margin-bottom:clamp(10px,1.5cqi,20px); position:relative;
+}
+.tl-step.done .tl-node { background:var(--accent); color:#fff; box-shadow:0 0 0 clamp(3px,.4cqi,6px) rgba(14,122,78,.2); }
+.tl-step.current .tl-node { background:#fff; color:var(--accent); border:clamp(2px,.3cqi,4px) solid var(--accent); box-shadow:0 0 0 clamp(3px,.4cqi,6px) rgba(14,122,78,.15), 0 clamp(4px,.6cqi,10px) clamp(12px,1.5cqi,24px) rgba(14,122,78,.25); }
+.tl-step.future .tl-node { background:var(--bg-alt); color:var(--fg-muted); }
+.tl-period { font-size:clamp(9px,1.05cqi,13px); font-weight:700; letter-spacing:.1em; text-transform:uppercase; margin-bottom:clamp(3px,.5cqi,6px); }
+.tl-step.done    .tl-period { color:var(--accent); }
+.tl-step.current .tl-period { color:var(--accent); }
+.tl-step.future  .tl-period { color:var(--fg-muted); opacity:.5; }
+.tl-step-title { font-family:var(--font-heading); font-size:clamp(13px,1.7cqi,22px); font-weight:800; letter-spacing:-.02em; color:var(--fg); margin-bottom:clamp(4px,.6cqi,8px); line-height:1.1; }
+.tl-step.future .tl-step-title { color:var(--fg-muted); }
+.tl-step-desc { font-size:clamp(9px,1.1cqi,14px); color:var(--fg-muted); line-height:1.45; max-width:22ch; }
+.tl-step.future .tl-step-desc { opacity:.55; }
+.tl-badge { display:inline-block; background:var(--accent); color:#fff; font-size:clamp(8px,.88cqi,11px); font-weight:700; letter-spacing:.07em; text-transform:uppercase; padding:.25em .7em; border-radius:999px; margin-top:clamp(5px,.8cqi,10px); }
+.tl-footer {
+  display:flex; align-items:center; justify-content:space-between;
+  margin-top:clamp(14px,2.2cqi,30px); padding-top:clamp(10px,1.4cqi,20px);
+  border-top:1px solid var(--bg-alt); opacity:0;
+}
+.tl-footer .fp-label { font-size:clamp(10px,1.1cqi,14px); font-weight:600; color:var(--accent); white-space:nowrap; margin-right:clamp(10px,1.5cqi,20px); }
+.tl-footer .fp-track { flex:1; height:clamp(4px,.5cqi,7px); background:var(--bg-alt); border-radius:999px; overflow:hidden; }
+.tl-footer .fp-fill  { height:100%; width:0; background:linear-gradient(90deg,var(--accent),var(--accent-2)); border-radius:999px; }
+.tl-footer .fp-pct   { font-size:clamp(10px,1.1cqi,14px); font-weight:700; color:var(--fg); white-space:nowrap; margin-left:clamp(10px,1.5cqi,20px); }
+
+.slide.active#s7 .tl-header  { animation: fadeDown .45s ease .05s forwards; }
+.slide.active#s7 .tl-vision  { animation: slideUpFade .4s ease .15s forwards; }
+.slide.active#s7 .tl-rule    { animation: fadeIn .4s ease .25s forwards; }
+.slide.active#s7 .tl-footer  { animation: fadeDown .4s ease 1s forwards; }
+.slide.active#s7 .fp-fill    { animation: fillBar .8s ease 1.1s forwards; }
+
+/* ─────────────────────────────────────────
+   S8 — TEAM
+───────────────────────────────────────── */
+#s8 { padding: clamp(20px,4.5cqi,58px); }
+#s8 .header { margin-top:clamp(28px,5.5cqi,60px); text-align:center; margin-bottom:clamp(6px,.9cqi,10px); opacity:0; }
+#s8 .vision-line { text-align:center; font-size:clamp(11px,1.25cqi,16px); color:var(--fg-muted); margin-bottom:clamp(12px,2cqi,22px); opacity:0; }
 #s8 .vision-line strong { color:var(--accent); }
-#s8 .gold-rule { height:2px; background:linear-gradient(90deg,transparent,var(--accent-2),transparent); margin-bottom:clamp(12px,2cqi,22px); }
-#s8 .team-row { display:flex; gap:clamp(12px,2cqi,28px); justify-content:center; flex:1; }
-.tcard { flex:1; max-width:clamp(160px,24cqi,290px); background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:clamp(16px,2.5cqi,28px) clamp(12px,1.8cqi,20px); display:flex; flex-direction:column; align-items:center; text-align:center; box-shadow:var(--shadow-lg); }
-.avatar { width:clamp(56px,7cqi,88px); height:clamp(56px,7cqi,88px); border-radius:50%; background:linear-gradient(135deg,var(--accent),var(--accent-2)); padding:2.5px; margin-bottom:clamp(8px,1.3cqi,14px); flex-shrink:0; }
-.avatar-in { width:100%; height:100%; border-radius:50%; background:var(--bg-alt); display:flex; align-items:center; justify-content:center; font-family:var(--font-heading); font-size:clamp(18px,2.6cqi,32px); font-weight:800; color:var(--accent); overflow:hidden; }
-.t-name { font-size:clamp(11px,1.15cqi,15px); font-weight:700; color:var(--accent); margin-bottom:3px; }
-.t-role { font-size:clamp(9px,.92cqi,12px); color:var(--fg-muted); }
+#s8 .gold-rule { height:2px; background:linear-gradient(90deg,transparent,var(--accent-2),transparent); margin-bottom:clamp(12px,2cqi,24px); opacity:0; }
+#s8 .team-row { display:flex; gap:clamp(14px,2.2cqi,30px); justify-content:center; flex:1; align-items:center; }
+.tcard {
+  flex:1; max-width:clamp(160px,24cqi,290px);
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:18px; padding:clamp(18px,2.8cqi,32px) clamp(14px,2cqi,22px);
+  display:flex; flex-direction:column; align-items:center; text-align:center;
+  box-shadow:var(--shadow-lg); opacity:0;
+  transition: transform .2s ease;
+}
+.tcard:hover { transform: translateY(-3px); }
+.avatar-wrap { width:clamp(58px,7.5cqi,92px); height:clamp(58px,7.5cqi,92px); border-radius:50%; background:linear-gradient(135deg,var(--accent),var(--accent-2)); padding:2.5px; margin-bottom:clamp(10px,1.5cqi,16px); flex-shrink:0; }
+.avatar-in { width:100%; height:100%; border-radius:50%; background:var(--bg-alt); display:flex; align-items:center; justify-content:center; font-family:var(--font-heading); font-size:clamp(18px,2.6cqi,34px); font-weight:800; color:var(--accent); }
+.t-name { font-size:clamp(12px,1.2cqi,15px); font-weight:700; color:var(--accent); margin-bottom:3px; }
+.t-role { font-size:clamp(9px,.95cqi,12px); color:var(--fg-muted); line-height:1.4; }
 
-/* S9 CTA */
-#s9 { align-items:center; justify-content:center; text-align:center; }
-#s9 .content { position:relative; z-index:2; max-width:68%; }
-#s9 .pill { display:inline-block; background:rgba(201,169,110,.2); border:1px solid rgba(201,169,110,.38); border-radius:100px; padding:clamp(4px,.7cqi,8px) clamp(12px,1.8cqi,20px); font-size:clamp(8px,.9cqi,12px); font-weight:600; color:var(--accent-2f); letter-spacing:.12em; text-transform:uppercase; margin-bottom:clamp(12px,2cqi,22px); }
-#s9 h2 { color:#fff; margin-bottom:clamp(8px,1.3cqi,16px); }
-#s9 .sub { color:rgba(255,255,255,.68); margin-bottom:clamp(20px,3.5cqi,38px); }
-.icon-row { display:flex; gap:clamp(10px,1.7cqi,20px); justify-content:center; }
-.ibtn { width:clamp(38px,5cqi,58px); height:clamp(38px,5cqi,58px); border-radius:50%; background:rgba(255,255,255,.12); border:1.5px solid rgba(255,255,255,.25); display:flex; align-items:center; justify-content:center; cursor:pointer; transition:background .22s, transform .2s; backdrop-filter:blur(4px); }
+.slide.active#s8 .header        { animation: slideUpFade .5s cubic-bezier(.22,1,.36,1) .08s forwards; }
+.slide.active#s8 .vision-line   { animation: slideUpFade .4s ease .2s forwards; }
+.slide.active#s8 .gold-rule     { animation: fadeIn .4s ease .3s forwards; }
+.slide.active#s8 .tcard:nth-child(1) { animation: revealCard .5s cubic-bezier(.22,1,.36,1) .35s forwards; }
+.slide.active#s8 .tcard:nth-child(2) { animation: revealCard .5s cubic-bezier(.22,1,.36,1) .48s forwards; }
+.slide.active#s8 .tcard:nth-child(3) { animation: revealCard .5s cubic-bezier(.22,1,.36,1) .61s forwards; }
+
+/* ─────────────────────────────────────────
+   S9 — CTA / CLOSE  (hero.html pattern)
+───────────────────────────────────────── */
+#s9 {
+  padding: clamp(32px,6cqi,80px);
+  background: linear-gradient(148deg, #030d07 0%, #062a17 35%, #0a5c3a 70%, #0e7a4e 100%);
+  justify-content: flex-end; align-items: flex-start;
+}
+#s9::before {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:200px 200px; opacity:.04; z-index:0;
+}
+#s9::after {
+  content:''; position:absolute; inset:0; pointer-events:none; z-index:0;
+  background: radial-gradient(ellipse 50% 50% at 75% 35%, rgba(14,122,78,.45) 0%, transparent 65%),
+              radial-gradient(ellipse 35% 40% at 15% 80%, rgba(201,169,110,.2) 0%, transparent 60%);
+}
+#s9 .bg-word {
+  position:absolute; right:-.03em; bottom:-.12em;
+  font-size:clamp(110px,22cqi,300px); font-weight:800; line-height:1;
+  letter-spacing:-.04em; color:rgba(255,255,255,.04);
+  pointer-events:none; user-select:none; z-index:0; font-family:var(--font-body);
+  opacity:0;
+}
+#s9 .content { position:relative; z-index:2; max-width:75%; }
+#s9 .kicker {
+  display:inline-flex; align-items:center; gap:.6em;
+  font-size:clamp(10px,1.2cqi,15px); font-weight:700;
+  letter-spacing:.13em; text-transform:uppercase; color:var(--accent-2f);
+  margin-bottom:clamp(12px,1.6cqi,22px); opacity:0;
+}
+#s9 .kicker::before { content:''; display:inline-block; width:clamp(16px,2.2cqi,30px); height:2px; background:var(--accent-2); }
+#s9 h2 { color:#fff; margin-bottom:clamp(10px,1.4cqi,18px); opacity:0; }
+#s9 .subtitle { color:rgba(255,255,255,.7); font-size:clamp(13px,1.8cqi,23px); max-width:46ch; margin-bottom:clamp(20px,3.5cqi,40px); opacity:0; }
+.icon-row { display:flex; gap:clamp(10px,1.5cqi,18px); }
+.ibtn {
+  width:clamp(38px,5cqi,56px); height:clamp(38px,5cqi,56px); border-radius:50%;
+  background:rgba(255,255,255,.12); border:1.5px solid rgba(255,255,255,.25);
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; transition:background .22s, transform .2s;
+  backdrop-filter:blur(4px); opacity:0;
+}
 .ibtn:hover { background:rgba(201,169,110,.32); transform:translateY(-2px); }
-.ibtn svg { width:clamp(15px,2cqi,22px); fill:#fff; }
+.ibtn svg { width:clamp(15px,1.9cqi,21px); fill:#fff; }
+#s9 .brand-mark {
+  position:absolute; bottom:clamp(20px,2.5cqi,36px); right:clamp(24px,3cqi,44px); z-index:2;
+  font-size:clamp(10px,1.05cqi,14px); font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+  color:rgba(255,255,255,.3); opacity:0;
+}
+
+.slide.active#s9 .kicker    { animation: slideUpFade .5s ease .1s forwards; }
+.slide.active#s9 h2          { animation: slideUpFade .55s cubic-bezier(.22,1,.36,1) .25s forwards; }
+.slide.active#s9 .subtitle   { animation: slideUpFade .5s ease .42s forwards; }
+.slide.active#s9 .ibtn:nth-child(1) { animation: slideUpFade .4s ease .58s forwards; }
+.slide.active#s9 .ibtn:nth-child(2) { animation: slideUpFade .4s ease .68s forwards; }
+.slide.active#s9 .ibtn:nth-child(3) { animation: slideUpFade .4s ease .78s forwards; }
+.slide.active#s9 .bg-word    { animation: fadeIn .8s ease .3s forwards; }
+.slide.active#s9 .brand-mark { animation: fadeIn .5s ease .9s forwards; }
+.slide.active#s9 .logo-badge { animation: fadeIn .4s ease .05s forwards; opacity:0; }
 
 /* ── Print / PDF ── */
 @media print {
   html, body { overflow:visible; background:#fff; }
   .slides-wrapper, .deck { width:100%; height:auto; display:block; }
   .slide { position:relative; inset:auto; opacity:1 !important; transform:none !important; pointer-events:auto; width:100%; aspect-ratio:16/9; page-break-after:always; break-after:page; }
-  .nav-dots, .progress-bar { display:none; }
+  .nav-dots, .nav-arrows, .progress-bar, .slide-counter { display:none; }
 }
 
 /* ── cqi fallback ── */
 @supports not (font-size: 1cqi) {
-  .slide h1 { font-size:clamp(26px,6vw,80px); }
-  .slide h2 { font-size:clamp(20px,3.8vw,52px); }
-  .slide p, .slide .body-text { font-size:clamp(12px,1.7vw,22px); }
-  .slide .label { font-size:clamp(9px,1.1vw,14px); }
-  .slide { padding:clamp(20px,5vw,60px); }
+  .slide h1 { font-size: clamp(26px,6vw,82px); }
+  .slide h2 { font-size: clamp(20px,3.8vw,54px); }
+  .slide p  { font-size: clamp(12px,1.65vw,21px); }
+  .slide    { padding: clamp(20px,5vw,64px); }
 }
 </style>
 </head>
@@ -388,14 +662,9 @@ html, body {
 <div class="slides-wrapper">
 <div class="deck" id="deck">
 
-<!-- ── PROGRESS BAR ── -->
-<div class="progress-bar" id="progress"></div>
-
-<!-- ════ S1: COVER ════ -->
-<div class="slide dark active" id="s1">
-  <div class="dot-bg"></div>
-  <div class="glow"></div>
-  <div class="logo-badge on-dark fade-in d1">
+<!-- ════ S1: HERO COVER ════ -->
+<div class="slide active" id="s1">
+  <div class="logo-badge on-dark" style="opacity:0">
     <svg viewBox="0 0 48 48" fill="none">
       <path d="M8 16L12 10L20 8L28 10L36 8L42 14L40 22L36 28L32 32L28 38L22 34L18 36L14 30L10 24Z" stroke="rgba(255,255,255,.5)" stroke-width="1.5" fill="none"/>
       <circle cx="16" cy="18" r="2" fill="#c9a96e"/><circle cx="28" cy="14" r="1.5" fill="rgba(255,255,255,.7)"/>
@@ -407,55 +676,62 @@ html, body {
     </svg>
     <div><div class="lt1">GCC</div><div class="lt2">Health AI</div></div>
   </div>
-  <div class="hero">
-    <div class="pill slide-up d2"><span>Community Profile 2025</span></div>
-    <h1 class="slide-up d3">The Community Powering<br>the Future of <em>Healthcare</em><br>in the Gulf</h1>
-    <p class="sub slide-up d4">Connecting healthcare, AI, and innovation across the GCC</p>
+  <div class="bg-year" aria-hidden="true">2025</div>
+  <div class="content">
+    <div class="kicker">Community Profile 2025</div>
+    <h1>The Community<br>Powering <em>Healthcare</em><br>in the Gulf</h1>
+    <p class="subtitle">Connecting healthcare providers, AI engineers, founders, and investors across the GCC and beyond.</p>
   </div>
-  <div class="slide-counter">1 / 9</div>
+  <div class="brand">GCC Health AI · gcchealth.ai</div>
 </div>
 
-<!-- ════ S2: ABOUT ════ -->
+<!-- ════ S2: ABOUT (split pattern) ════ -->
 <div class="slide" id="s2">
-  <div class="logo-badge on-light fade-in d1">
-    <svg viewBox="0 0 48 48" fill="none">
-      <path d="M8 16L12 10L20 8L28 10L36 8L42 14L40 22L36 28L32 32L28 38L22 34L18 36L14 30L10 24Z" stroke="#0e7a4e" stroke-width="1.5" fill="none"/>
-      <circle cx="16" cy="18" r="2" fill="#c9a96e"/><circle cx="28" cy="14" r="1.5" fill="#0e7a4e"/>
-      <circle cx="36" cy="22" r="2" fill="#c9a96e"/><circle cx="24" cy="28" r="1.5" fill="#0e7a4e"/>
-      <line x1="16" y1="18" x2="28" y2="14" stroke="#0e7a4e" stroke-width="1" opacity=".35"/>
-      <line x1="28" y1="14" x2="36" y2="22" stroke="#0e7a4e" stroke-width="1" opacity=".35"/>
-      <line x1="36" y1="22" x2="24" y2="28" stroke="#0e7a4e" stroke-width="1" opacity=".35"/>
-      <line x1="16" y1="18" x2="24" y2="28" stroke="#0e7a4e" stroke-width="1" opacity=".35"/>
-    </svg>
-    <div><div class="lt1">GCC</div><div class="lt2">Health AI</div></div>
+  <div class="split-left">
+    <p class="eyebrow">Who We Are</p>
+    <h2>GCC<br>Health AI</h2>
+    <div class="divider"></div>
+    <div class="big-stat" data-count="300" data-count-suffix="+" data-count-duration="1200">300+<em>Members</em></div>
+    <div class="stat-sub">Across 6 Global Markets</div>
+    <div class="section-label">Est. 2023</div>
   </div>
-  <div class="header slide-up d2">
-    <div class="label">About Us</div>
-    <h2>What is GCC Health AI?</h2>
+  <div class="split-right">
+    <p class="intro">What We Do</p>
+    <ul>
+      <li>
+        <div class="bmark">1</div>
+        <div class="btext">
+          <strong>Leading professional community</strong>
+          <span>Connecting healthcare providers, AI engineers, founders &amp; investors across the GCC</span>
+        </div>
+      </li>
+      <li>
+        <div class="bmark">2</div>
+        <div class="btext">
+          <strong>Cross-border collaboration hub</strong>
+          <span>A platform for partnerships, deal flow, and knowledge sharing between 6 markets</span>
+        </div>
+      </li>
+      <li>
+        <div class="bmark">3</div>
+        <div class="btext">
+          <strong>Innovation accelerator</strong>
+          <span>Driving AI adoption in GCC healthcare, aligned with Vision 2030</span>
+        </div>
+      </li>
+      <li>
+        <div class="bmark">4</div>
+        <div class="btext">
+          <strong>Curated &amp; vetted network</strong>
+          <span>Every member is selected to ensure signal over noise and real opportunities</span>
+        </div>
+      </li>
+    </ul>
   </div>
-  <div class="body slide-up d3">
-    <div class="stack" style="flex:1;">
-      <p class="body-text">GCC Health AI is the <strong style="color:var(--accent)">leading professional community</strong> connecting healthcare providers, AI engineers, founders, and investors across the Gulf Cooperation Council and beyond.</p>
-      <ul class="clean stack stagger">
-        <li>A curated network of 300+ vetted professionals driving AI adoption in GCC healthcare</li>
-        <li>A platform for cross-border collaboration, partnerships, and deal flow</li>
-        <li>A knowledge hub accelerating innovation aligned with Vision 2030</li>
-        <li>Active in 6 markets: Saudi Arabia, UAE, Oman, India, Europe &amp; USA</li>
-      </ul>
-    </div>
-    <div class="about-card blur-in d4">
-      <div class="big" data-count="300" data-count-suffix="+" data-count-duration="1200">300+</div>
-      <div class="sm">Active Members</div>
-      <hr>
-      <div class="sub2">Founders · Clinicians<br>AI Engineers · Investors<br>across 6 global markets</div>
-    </div>
-  </div>
-  <div class="slide-counter">2 / 9</div>
 </div>
 
 <!-- ════ S3: PROBLEM ════ -->
-<div class="slide dark" id="s3">
-  <div class="dot-bg"></div>
+<div class="slide" id="s3">
   <div class="logo-badge on-dark fade-in d1">
     <svg viewBox="0 0 48 48" fill="none">
       <path d="M8 16L12 10L20 8L28 10L36 8L42 14L40 22L36 28L32 32L28 38L22 34L18 36L14 30L10 24Z" stroke="rgba(255,255,255,.5)" stroke-width="1.5" fill="none"/>
@@ -469,16 +745,15 @@ html, body {
     <div><div class="lt1">GCC</div><div class="lt2">Health AI</div></div>
   </div>
   <div class="content">
-    <div class="label slide-up d2">The Challenge</div>
-    <h2 class="slide-up d3">The GCC healthcare ecosystem<br>is <em>fragmented</em> and moving fast</h2>
-    <div class="cols-2 stagger">
-      <div class="card prob-card"><div class="pi">🔍</div><h3>No Discovery Layer</h3><p>Innovators can't find the right clinical partners or investors in the region</p></div>
-      <div class="card prob-card"><div class="pi">🌐</div><h3>Siloed Markets</h3><p>SA, UAE, and Oman operate independently with limited cross-border collaboration</p></div>
-      <div class="card prob-card"><div class="pi">⚡</div><h3>Speed Gap</h3><p>AI moves faster than traditional healthcare networks can adapt or connect</p></div>
-      <div class="card prob-card"><div class="pi">💸</div><h3>Lost Deal Flow</h3><p>Investors miss regional opportunities; founders miss regional capital</p></div>
+    <div class="label">The Challenge</div>
+    <h2>The GCC healthcare ecosystem<br>is <em>fragmented</em> and moving fast</h2>
+    <div class="prob-grid">
+      <div class="prob-card"><div class="prob-num">1</div><div><h3>No Discovery Layer</h3><p>Innovators can't find the right clinical partners or investors in the region</p></div></div>
+      <div class="prob-card"><div class="prob-num">2</div><div><h3>Siloed Markets</h3><p>SA, UAE, and Oman operate independently with limited cross-border collaboration</p></div></div>
+      <div class="prob-card"><div class="prob-num">3</div><div><h3>Speed Gap</h3><p>AI moves faster than traditional healthcare networks can adapt or connect</p></div></div>
+      <div class="prob-card"><div class="prob-num">4</div><div><h3>Lost Deal Flow</h3><p>Investors miss regional opportunities; founders miss regional capital</p></div></div>
     </div>
   </div>
-  <div class="slide-counter">3 / 9</div>
 </div>
 
 <!-- ════ S4: MEMBERS ════ -->
@@ -495,14 +770,16 @@ html, body {
     </svg>
     <div><div class="lt1">GCC</div><div class="lt2">Health AI</div></div>
   </div>
-  <div class="top">
-    <div class="stat-col slide-up d2">
+  <div class="label" style="margin-top:clamp(32px,5.5cqi,60px)">Community Members</div>
+  <h2>Who's Inside</h2>
+  <div class="top-row">
+    <div class="stat-col">
       <div class="stat-num" data-count="300" data-count-suffix="+" data-count-duration="1100">300+</div>
       <div class="stat-lbl">Active Members</div>
     </div>
-    <div style="flex:1;" class="slide-up d3">
-      <div class="label" style="margin-bottom:clamp(8px,1.3cqi,14px);">Who's Inside</div>
-      <div class="cols-2 stagger">
+    <div class="right-col">
+      <div class="label">Member Archetypes</div>
+      <div class="mcard-grid">
         <div class="mcard"><div class="mcard-icon">🚀</div><div class="mcard-name">Founders &amp; Startups</div></div>
         <div class="mcard"><div class="mcard-icon">🏥</div><div class="mcard-name">Healthcare Providers</div></div>
         <div class="mcard"><div class="mcard-icon">🧠</div><div class="mcard-name">AI Engineers</div></div>
@@ -512,8 +789,8 @@ html, body {
       </div>
     </div>
   </div>
-  <div class="geo fade-in d5">
-    <div class="geo-note">Global footprint across the Middle East, South Asia, Europe &amp; North America</div>
+  <div class="geo">
+    <div class="geo-note">Global footprint across Middle East, South Asia, Europe &amp; North America</div>
     <div class="geo-tag"><span class="code">SA</span>Saudi Arabia</div>
     <div class="geo-tag"><span class="code">AE</span>UAE</div>
     <div class="geo-tag"><span class="code">OM</span>Oman</div>
@@ -521,7 +798,6 @@ html, body {
     <div class="geo-tag"><span class="code">EU</span>Europe</div>
     <div class="geo-tag"><span class="code">US</span>USA</div>
   </div>
-  <div class="slide-counter">4 / 9</div>
 </div>
 
 <!-- ════ S5: HOW WE WORK ════ -->
@@ -538,36 +814,40 @@ html, body {
     </svg>
     <div><div class="lt1">GCC</div><div class="lt2">Health AI</div></div>
   </div>
-  <div class="header slide-up d2">
+  <div class="header">
     <div class="label">How We Work</div>
     <h2>Connect · Collaborate · Grow</h2>
   </div>
-  <div class="flow slide-up d3">
-    <div class="fcard fc-dark">
+  <div class="flow">
+    <div class="fcard dark">
       <div class="ficon">🔗</div>
       <div class="ftitle">Connect</div>
-      <div class="fitems"><div class="fitem">Professionals</div><div class="fitem">Innovators</div><div class="fitem">Investors</div></div>
+      <div class="fitems"><div class="fitem">Vetted professionals</div><div class="fitem">Founders &amp; investors</div><div class="fitem">Cross-border</div></div>
     </div>
     <div class="farrow"><svg viewBox="0 0 32 32" fill="none"><path d="M4 16h20M18 10l6 6-6 6" stroke="#c9a96e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-    <div class="fcard fc-light">
+    <div class="fcard light">
       <div class="ficon">🤝</div>
       <div class="ftitle">Collaborate</div>
-      <div class="fitems"><div class="fitem">Projects</div><div class="fitem">Partnerships</div><div class="fitem">Research</div></div>
+      <div class="fitems"><div class="fitem">Joint projects</div><div class="fitem">Partnerships</div><div class="fitem">Research</div></div>
     </div>
     <div class="farrow"><svg viewBox="0 0 32 32" fill="none"><path d="M4 16h20M18 10l6 6-6 6" stroke="#c9a96e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-    <div class="fcard fc-light">
+    <div class="fcard light">
       <div class="ficon">📈</div>
       <div class="ftitle">Grow</div>
-      <div class="fitems"><div class="fitem">Funding</div><div class="fitem">Hiring</div><div class="fitem">Opportunities</div></div>
+      <div class="fitems"><div class="fitem">Funding access</div><div class="fitem">Hiring pipelines</div><div class="fitem">New opportunities</div></div>
+    </div>
+    <div class="farrow"><svg viewBox="0 0 32 32" fill="none"><path d="M4 16h20M18 10l6 6-6 6" stroke="#c9a96e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <div class="fcard dark">
+      <div class="ficon">🌍</div>
+      <div class="ftitle">Impact</div>
+      <div class="fitems"><div class="fitem">Region-wide change</div><div class="fitem">Vision 2030</div><div class="fitem">Better outcomes</div></div>
     </div>
   </div>
-  <div class="tagline fade-in d5">Turning a fragmented ecosystem into a <strong>connected, intelligent network</strong></div>
-  <div class="slide-counter">5 / 9</div>
+  <div class="tagline">Turning a fragmented ecosystem into a <strong>connected, intelligent network</strong></div>
 </div>
 
-<!-- ════ S6: IMPACT (bold-template-pack/stats pattern) ════ -->
-<div class="slide dark" id="s6">
-  <div class="dot-bg"></div>
+<!-- ════ S6: IMPACT / STATS (stats.html pattern) ════ -->
+<div class="slide" id="s6">
   <div class="logo-badge on-dark fade-in d1">
     <svg viewBox="0 0 48 48" fill="none">
       <path d="M8 16L12 10L20 8L28 10L36 8L42 14L40 22L36 28L32 32L28 38L22 34L18 36L14 30L10 24Z" stroke="rgba(255,255,255,.5)" stroke-width="1.5" fill="none"/>
@@ -580,28 +860,55 @@ html, body {
     </svg>
     <div><div class="lt1">GCC</div><div class="lt2">Health AI</div></div>
   </div>
-  <div class="content">
-    <div class="label slide-up d2">Our Impact</div>
-    <h2 class="slide-up d3">Community by the Numbers</h2>
-    <div class="cols-3 stagger">
-      <div class="card scard dark">
-        <div class="snum"><span data-count="300" data-count-suffix="+" data-count-duration="1100">300+</span></div>
-        <div class="slbl">Active Community<br>Members</div>
+  <div class="stats-content">
+    <div class="stats-header">
+      <span class="sh-label">Our Impact</span>
+      <div class="sh-rule"></div>
+      <span class="sh-title">Community by the Numbers</span>
+    </div>
+    <div class="kpi-grid">
+      <div class="kpi-card" style="--kpi-accent:#c9a96e">
+        <div class="kpi-trend">↑ Growing</div>
+        <span class="kpi-number" data-count="300" data-count-suffix="+" data-count-duration="1200">300+</span>
+        <div class="kpi-label">Active Members</div>
+        <div class="kpi-desc">Vetted professionals driving AI adoption in GCC healthcare</div>
+        <div class="kpi-spark">
+          <div class="kpi-bar" style="height:30%"></div><div class="kpi-bar" style="height:45%"></div>
+          <div class="kpi-bar" style="height:52%"></div><div class="kpi-bar" style="height:60%"></div>
+          <div class="kpi-bar" style="height:72%"></div><div class="kpi-bar" style="height:82%"></div>
+          <div class="kpi-bar" style="height:90%"></div><div class="kpi-bar hi" style="height:100%"></div>
+        </div>
       </div>
-      <div class="card scard dark">
-        <div class="snum"><span data-count="6" data-count-duration="800">6</span></div>
-        <div class="slbl">Countries &amp;<br>Markets Represented</div>
+      <div class="kpi-card" style="--kpi-accent:#0e7a4e">
+        <div class="kpi-trend">↑ Expanding</div>
+        <span class="kpi-number" data-count="6" data-count-duration="800">6</span>
+        <div class="kpi-label">Countries &amp; Markets</div>
+        <div class="kpi-desc">SA · UAE · Oman · India · Europe · USA — with more joining</div>
+        <div class="kpi-spark">
+          <div class="kpi-bar" style="height:20%;--kpi-accent:#0e7a4e"></div><div class="kpi-bar" style="height:33%;--kpi-accent:#0e7a4e"></div>
+          <div class="kpi-bar" style="height:50%;--kpi-accent:#0e7a4e"></div><div class="kpi-bar" style="height:50%;--kpi-accent:#0e7a4e"></div>
+          <div class="kpi-bar" style="height:67%;--kpi-accent:#0e7a4e"></div><div class="kpi-bar" style="height:83%;--kpi-accent:#0e7a4e"></div>
+          <div class="kpi-bar" style="height:83%;--kpi-accent:#0e7a4e"></div><div class="kpi-bar hi" style="height:100%;--kpi-accent:#0e7a4e"></div>
+        </div>
       </div>
-      <div class="card scard dark">
-        <div class="snum"><span data-count="4" data-count-suffix="+" data-count-duration="600">4+</span></div>
-        <div class="slbl">Member Archetypes:<br>Founders · Clinicians · AI · Investors</div>
+      <div class="kpi-card" style="--kpi-accent:#dfc18a">
+        <div class="kpi-trend">↑ Connecting</div>
+        <span class="kpi-number" data-count="4" data-count-suffix="+" data-count-duration="600">4+</span>
+        <div class="kpi-label">Member Archetypes</div>
+        <div class="kpi-desc">Founders · Clinicians · AI Engineers · Investors — all in one room</div>
+        <div class="kpi-spark">
+          <div class="kpi-bar" style="height:25%;--kpi-accent:#dfc18a"></div><div class="kpi-bar" style="height:50%;--kpi-accent:#dfc18a"></div>
+          <div class="kpi-bar" style="height:50%;--kpi-accent:#dfc18a"></div><div class="kpi-bar" style="height:75%;--kpi-accent:#dfc18a"></div>
+          <div class="kpi-bar" style="height:75%;--kpi-accent:#dfc18a"></div><div class="kpi-bar" style="height:75%;--kpi-accent:#dfc18a"></div>
+          <div class="kpi-bar" style="height:100%;--kpi-accent:#dfc18a"></div><div class="kpi-bar hi" style="height:100%;--kpi-accent:#dfc18a"></div>
+        </div>
       </div>
     </div>
+    <p class="stats-footnote">Community data as of 2025 · GCC Health AI Community Profile</p>
   </div>
-  <div class="slide-counter">6 / 9</div>
 </div>
 
-<!-- ════ S7: VISION & ROADMAP (bold-template-pack/timeline pattern) ════ -->
+<!-- ════ S7: ROADMAP (timeline.html pattern) ════ -->
 <div class="slide" id="s7">
   <div class="logo-badge on-light fade-in d1">
     <svg viewBox="0 0 48 48" fill="none">
@@ -615,19 +922,46 @@ html, body {
     </svg>
     <div><div class="lt1">GCC</div><div class="lt2">Health AI</div></div>
   </div>
-  <div class="header slide-up d2">
-    <div class="label">Vision &amp; Roadmap</div>
-    <h2>Where We're Headed</h2>
+  <div style="display:flex;flex-direction:column;flex:1;justify-content:center;margin-top:clamp(32px,5cqi,58px)">
+    <div class="tl-header">
+      <h2>Roadmap</h2>
+      <span class="tl-sub">2023 → 2027+</span>
+    </div>
+    <p class="tl-vision">Our mission is to <strong>position the GCC as a global leader</strong> in AI-driven healthcare — building the connective tissue between talent, capital, and clinical institutions across the region.</p>
+    <div class="tl-rule"></div>
+    <div class="timeline-track">
+      <div class="tl-step done">
+        <div class="tl-node"><span>✓</span></div>
+        <div class="tl-period">2023–2024</div>
+        <div class="tl-step-title">Foundation</div>
+        <div class="tl-step-desc">Community launch · 300+ members · 6-market presence</div>
+      </div>
+      <div class="tl-step done">
+        <div class="tl-node"><span>✓</span></div>
+        <div class="tl-period">2024–2025</div>
+        <div class="tl-step-title">Platform</div>
+        <div class="tl-step-desc">Digital hub · Matchmaking tools · Events &amp; summits</div>
+      </div>
+      <div class="tl-step current">
+        <div class="tl-node">3</div>
+        <div class="tl-period">2025–2026</div>
+        <div class="tl-step-title">Ecosystem</div>
+        <div class="tl-step-desc">Deal flow pipeline · Research partnerships · 1,000+ members</div>
+        <div class="tl-badge">In Progress</div>
+      </div>
+      <div class="tl-step future">
+        <div class="tl-node">4</div>
+        <div class="tl-period">2027+</div>
+        <div class="tl-step-title">Leadership</div>
+        <div class="tl-step-desc">GCC Health AI index · Policy influence · Global benchmark</div>
+      </div>
+    </div>
+    <div class="tl-footer">
+      <span class="fp-label">Overall Progress</span>
+      <div class="fp-track"><div class="fp-fill"></div></div>
+      <span class="fp-pct">50%</span>
+    </div>
   </div>
-  <p class="vision-stmt slide-up d3">Our mission is to <strong>position the GCC as a global leader</strong> in AI-driven healthcare — building the connective tissue between talent, capital, and clinical institutions across the region.</p>
-  <div class="gold-rule"></div>
-  <div class="timeline stagger" style="flex:1;">
-    <div class="tphase"><div class="tnode">1</div><div class="tphase-title">Foundation</div><div class="tphase-period">2023–2024</div><div class="tphase-items">Community launch<br>300+ members<br>6-market presence</div></div>
-    <div class="tphase"><div class="tnode">2</div><div class="tphase-title">Platform</div><div class="tphase-period">2025</div><div class="tphase-items">Digital hub<br>Matchmaking tools<br>Events &amp; summits</div></div>
-    <div class="tphase"><div class="tnode">3</div><div class="tphase-title">Ecosystem</div><div class="tphase-period">2026</div><div class="tphase-items">Deal flow pipeline<br>Research partnerships<br>1,000+ members</div></div>
-    <div class="tphase"><div class="tnode">4</div><div class="tphase-title">Leadership</div><div class="tphase-period">2027+</div><div class="tphase-items">GCC Health AI index<br>Policy influence<br>Global benchmark</div></div>
-  </div>
-  <div class="slide-counter">7 / 9</div>
 </div>
 
 <!-- ════ S8: TEAM ════ -->
@@ -644,24 +978,34 @@ html, body {
     </svg>
     <div><div class="lt1">GCC</div><div class="lt2">Health AI</div></div>
   </div>
-  <div class="header slide-up d2">
+  <div class="header">
     <div class="label">The Team</div>
     <h2>Leadership</h2>
   </div>
-  <p class="vision-line slide-up d3">Position the GCC as a <strong>global leader</strong> in AI-driven healthcare</p>
+  <p class="vision-line">Building the <strong>connective tissue</strong> of GCC healthcare innovation</p>
   <div class="gold-rule"></div>
-  <div class="team-row stagger">
-    <div class="tcard"><div class="avatar"><div class="avatar-in">ZH</div></div><div class="t-name">Dr. Zahid Hussain</div><div class="t-role">Founder &amp; Community Lead</div></div>
-    <div class="tcard"><div class="avatar"><div class="avatar-in">MA</div></div><div class="t-name">Mohammed Almosa</div><div class="t-role">Operation &amp; Growth Lead</div></div>
-    <div class="tcard"><div class="avatar"><div class="avatar-in">ME</div></div><div class="t-name">Maria Expósito</div><div class="t-role">Strategy and Finance Lead</div></div>
+  <div class="team-row">
+    <div class="tcard">
+      <div class="avatar-wrap"><div class="avatar-in">ZH</div></div>
+      <div class="t-name">Dr. Zahid Hussain</div>
+      <div class="t-role">Founder &amp;<br>Community Lead</div>
+    </div>
+    <div class="tcard">
+      <div class="avatar-wrap"><div class="avatar-in">MA</div></div>
+      <div class="t-name">Mohammed Almosa</div>
+      <div class="t-role">Operations &amp;<br>Growth Lead</div>
+    </div>
+    <div class="tcard">
+      <div class="avatar-wrap"><div class="avatar-in">ME</div></div>
+      <div class="t-name">Maria Expósito</div>
+      <div class="t-role">Strategy &amp;<br>Finance Lead</div>
+    </div>
   </div>
-  <div class="slide-counter">8 / 9</div>
 </div>
 
-<!-- ════ S9: CTA (bold-template-pack/hero pattern) ════ -->
-<div class="slide dark" id="s9">
-  <div class="dot-bg"></div>
-  <div class="logo-badge on-dark fade-in d1">
+<!-- ════ S9: CTA / CLOSE (hero.html pattern) ════ -->
+<div class="slide" id="s9">
+  <div class="logo-badge on-dark" style="opacity:0">
     <svg viewBox="0 0 48 48" fill="none">
       <path d="M8 16L12 10L20 8L28 10L36 8L42 14L40 22L36 28L32 32L28 38L22 34L18 36L14 30L10 24Z" stroke="rgba(255,255,255,.5)" stroke-width="1.5" fill="none"/>
       <circle cx="16" cy="18" r="2" fill="#c9a96e"/><circle cx="28" cy="14" r="1.5" fill="rgba(255,255,255,.7)"/>
@@ -673,108 +1017,147 @@ html, body {
     </svg>
     <div><div class="lt1">GCC</div><div class="lt2">Health AI</div></div>
   </div>
+  <div class="bg-word" aria-hidden="true">GCC</div>
   <div class="content">
-    <div class="pill slide-up d2">Join the Movement</div>
-    <h2 class="slide-up d3">Join the Movement</h2>
-    <p class="sub slide-up d4">Be part of the transformation.<br>Connect with us to shape the future of healthcare in the Gulf.</p>
-    <div class="icon-row slide-up d5">
-      <div class="ibtn"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></div>
-      <div class="ibtn"><svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg></div>
-      <div class="ibtn"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg></div>
+    <div class="kicker">Get Involved</div>
+    <h2>Shape the Future<br>of <em style="font-style:normal;background:linear-gradient(90deg,var(--accent-2f),var(--accent-2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Healthcare</em><br>in the Gulf</h2>
+    <p class="subtitle">Join a curated network of the region's brightest minds in healthcare and AI. Connect, collaborate, and help build what comes next.</p>
+    <div class="icon-row">
+      <div class="ibtn" title="Email">
+        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      </div>
+      <div class="ibtn" title="LinkedIn">
+        <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+      </div>
+      <div class="ibtn" title="Website">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+      </div>
     </div>
   </div>
-  <div class="slide-counter">9 / 9</div>
+  <div class="brand-mark">GCC Health AI · 2025</div>
 </div>
+
+<!-- ── NAV CHROME (inside .deck) ── -->
+<div class="nav-arrows">
+  <button class="nav-arrow" id="prevBtn" aria-label="Previous slide" disabled>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+  </button>
+  <button class="nav-arrow" id="nextBtn" aria-label="Next slide">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+  </button>
+</div>
+<div class="nav-dots" id="navDots" role="tablist" aria-label="Slide navigation"></div>
+<div class="slide-counter" id="slideCounter">1 / 9</div>
+<div class="progress-bar" id="progressBar" role="progressbar" aria-valuemin="1" aria-valuemax="9" aria-valuenow="1"></div>
 
 </div><!-- /deck -->
 </div><!-- /slides-wrapper -->
 
-<!-- ── Nav dots ── -->
-<div class="nav-dots" id="navDots">
-  <button class="nbtn" id="prev">&#8592;</button>
-  <div class="nsep"></div>
-  <div class="nd on" data-i="0"></div>
-  <div class="nd" data-i="1"></div>
-  <div class="nd" data-i="2"></div>
-  <div class="nd" data-i="3"></div>
-  <div class="nd" data-i="4"></div>
-  <div class="nd" data-i="5"></div>
-  <div class="nd" data-i="6"></div>
-  <div class="nd" data-i="7"></div>
-  <div class="nd" data-i="8"></div>
-  <div class="nsep"></div>
-  <button class="nbtn" id="next">&#8594;</button>
-</div>
-
 <script>
-// ── Navigation ──
-const slides = document.querySelectorAll('.slide');
-const dots   = document.querySelectorAll('.nd');
-const bar    = document.getElementById('progress');
-const total  = slides.length;
-let cur = 0;
+(function () {
+  'use strict';
 
-function go(n) {
-  slides[cur].classList.remove('active');
-  dots[cur].classList.remove('on');
-  cur = (n + total) % total;
-  slides[cur].classList.add('active');
-  dots[cur].classList.add('on');
-  bar.style.width = ((cur + 1) / total * 100) + '%';
-}
+  var deck     = document.getElementById('deck');
+  var slides   = Array.from(deck.querySelectorAll('.slide'));
+  var dotsWrap = document.getElementById('navDots');
+  var counter  = document.getElementById('slideCounter');
+  var progress = document.getElementById('progressBar');
+  var prevBtn  = document.getElementById('prevBtn');
+  var nextBtn  = document.getElementById('nextBtn');
+  var total    = slides.length;
+  var current  = 0;
 
-document.getElementById('next').onclick = () => go(cur + 1);
-document.getElementById('prev').onclick = () => go(cur - 1);
-dots.forEach(d => d.addEventListener('click', () => go(+d.dataset.i)));
+  /* Build nav dots */
+  slides.forEach(function (_, i) {
+    var dot = document.createElement('button');
+    dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('role', 'tab');
+    dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+    dot.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+    dot.addEventListener('click', function () { goTo(i); });
+    dotsWrap.appendChild(dot);
+  });
 
-document.addEventListener('keydown', e => {
-  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); go(cur + 1); }
-  if (e.key === 'ArrowLeft')  go(cur - 1);
-  if (e.key === 'Home') go(0);
-  if (e.key === 'End')  go(total - 1);
-});
+  var dots = Array.from(dotsWrap.querySelectorAll('.nav-dot'));
 
-let tx = 0;
-document.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
-document.addEventListener('touchend',   e => { const dx = e.changedTouches[0].clientX - tx; if (Math.abs(dx) > 40) go(dx < 0 ? cur + 1 : cur - 1); }, { passive: true });
-
-// Set initial bar
-bar.style.width = (1 / total * 100) + '%';
-
-// ── count-up (from animation-patterns.md) ──
-function countUp(el, start, end, duration, prefix, suffix) {
-  start = start || 0; duration = duration || 1500; prefix = prefix || ''; suffix = suffix || '';
-  var startTime = null;
-  function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
-  function step(ts) {
-    if (!startTime) startTime = ts;
-    var progress = Math.min((ts - startTime) / duration, 1);
-    el.textContent = prefix + Math.round(start + (end - start) * easeOut(progress)).toLocaleString() + suffix;
-    if (progress < 1) requestAnimationFrame(step);
+  function goTo(index) {
+    if (index < 0 || index >= total || index === current) return;
+    var prev = current;
+    current = index;
+    slides[prev].classList.remove('active');
+    slides[current].classList.add('active');
+    dots[prev].classList.remove('active');
+    dots[prev].setAttribute('aria-selected', 'false');
+    dots[current].classList.add('active');
+    dots[current].setAttribute('aria-selected', 'true');
+    counter.textContent = (current + 1) + ' / ' + total;
+    progress.setAttribute('aria-valuenow', current + 1);
+    progress.style.width = ((current + 1) / total * 100) + '%';
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === total - 1;
   }
-  requestAnimationFrame(step);
-}
 
-document.querySelectorAll('[data-count]').forEach(function(el) {
-  var slide = el.closest('.slide');
-  if (!slide) return;
-  var triggered = false;
-  new MutationObserver(function(mutations) {
-    mutations.forEach(function(m) {
-      if (m.target.classList.contains('active') && !triggered) {
-        triggered = true;
-        countUp(el,
-          parseInt(el.dataset.countFrom     || '0',  10),
-          parseInt(el.dataset.count,                 10),
-          parseInt(el.dataset.countDuration || '1500',10),
-          el.dataset.countPrefix || '',
-          el.dataset.countSuffix || ''
-        );
-      }
-      if (!m.target.classList.contains('active')) triggered = false;
-    });
-  }).observe(slide, { attributes: true, attributeFilter: ['class'] });
-});
+  prevBtn.addEventListener('click', function () { goTo(current - 1); });
+  nextBtn.addEventListener('click', function () { goTo(current + 1); });
+
+  document.addEventListener('keydown', function (e) {
+    switch (e.key) {
+      case 'ArrowRight': case 'ArrowDown': case ' ': e.preventDefault(); goTo(current + 1); break;
+      case 'ArrowLeft':  case 'ArrowUp':             e.preventDefault(); goTo(current - 1); break;
+      case 'Home': e.preventDefault(); goTo(0); break;
+      case 'End':  e.preventDefault(); goTo(total - 1); break;
+      case 'f': case 'F':
+        if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(function () {});
+        else document.exitFullscreen();
+        break;
+    }
+  });
+
+  var touchStartX = 0, touchStartY = 0;
+  deck.addEventListener('touchstart', function (e) { touchStartX = e.touches[0].clientX; touchStartY = e.touches[0].clientY; }, { passive: true });
+  deck.addEventListener('touchend',   function (e) {
+    var dx = e.changedTouches[0].clientX - touchStartX;
+    var dy = e.changedTouches[0].clientY - touchStartY;
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) { if (dx < 0) goTo(current + 1); else goTo(current - 1); }
+  }, { passive: true });
+
+  progress.style.width = (1 / total * 100) + '%';
+  prevBtn.disabled = true;
+  counter.textContent = '1 / ' + total;
+
+  /* ── count-up (animation-patterns.md) ── */
+  function countUp(el) {
+    var end      = parseInt(el.dataset.count, 10);
+    var start    = parseInt(el.dataset.countFrom || '0', 10);
+    var duration = parseInt(el.dataset.countDuration || '1500', 10);
+    var suffix   = el.dataset.countSuffix || '';
+    var prefix   = el.dataset.countPrefix || '';
+    var startTime = null;
+    function ease(t) { return 1 - Math.pow(1 - t, 3); }
+    function step(ts) {
+      if (!startTime) startTime = ts;
+      var p = Math.min((ts - startTime) / duration, 1);
+      el.textContent = prefix + Math.round(start + (end - start) * ease(p)).toLocaleString() + suffix;
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  document.querySelectorAll('[data-count]').forEach(function (el) {
+    var slide = el.closest('.slide');
+    if (!slide) return;
+    var triggered = false;
+    new MutationObserver(function (mutations) {
+      mutations.forEach(function (m) {
+        if (m.target.classList.contains('active') && !triggered) { triggered = true; countUp(el); }
+        if (!m.target.classList.contains('active')) { triggered = false; }
+      });
+    }).observe(slide, { attributes: true, attributeFilter: ['class'] });
+    /* Run immediately if already active on load */
+    if (slide.classList.contains('active') && !triggered) { triggered = true; countUp(el); }
+  });
+
+})();
 </script>
 </body>
 </html>
